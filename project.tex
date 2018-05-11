@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+\usepackage[margin=5em]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\lstset{
+    frame=single,
+    gobble=4,
+}
+
+\setlength\parindent{0em}
+\setlength\parskip{1em}
+
+\newcommand\mono\texttt
+
+\title{
+    Python Comprehensions in While:\\
+    Initial Version
+}
+\author{
+    Hendrik Werner s4549775
+    \and Constantin Blach s4329872
+    \and Jona Heidsick s0710512
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent % so there is no random space in the beginning of the abstract
+In this document we extend the language While with list comprehensions inspired by Python. We explore the syntactical and semantic changes and additions needed to achieve this. Finally we analyze the extensions we made using a case study of a While program.
+\end{abstract}
+
+\section{Introduction}
+Comprehensions are extremely useful for dealing with container types and functional constructs in imperative languages. Python is an example of an imperative language that uses comprehensions, which can be used as more idiomatic versions of \mono{filter} and \mono{map}. They are not limited to this usecase though.
+
+By combining and nesting list comprehensions, it is possible to implement complicated calculations with minimal syntax and maximum elegance. Take the following Python program as an example:
+
+\begin{lstlisting}[language=Python]
+    def cartesian_product(a, b):
+        return [(x, y) for x in a for y in b]
+\end{lstlisting}
+
+It defines the Cartesian product in terms of list comprehensions. We want to be able to express this in the language While as well.
+
+\end{document}
