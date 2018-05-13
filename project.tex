@@ -6,6 +6,7 @@
 \lstset{
     frame=single,
     gobble=4,
+    language=Python,
 }
 
 \setlength\parindent{0em}
@@ -37,11 +38,29 @@ Comprehensions are extremely useful for dealing with container types and functio
 
 By combining and nesting list comprehensions, it is possible to implement complicated calculations with minimal syntax and maximum elegance. Take the following Python program as an example:
 
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}
     def cartesian_product(a, b):
         return [(x, y) for x in a for y in b]
 \end{lstlisting}
 
 It defines the Cartesian product in terms of list comprehensions. We want to be able to express this in the language While as well.
+
+We want to use Natural Semantics (NS) to describe list comprehensions in While, because as opposed to Structural Operational Semantics (SOS) it offers a higher level overview over the semantics. SOS is concerned with the individual steps of a computation, while NS describes the overall results. The high level overview is a better fit to describe list comprehensions. Python is a great example of that. Python 2 and Python 3 both offer list comprehensions with the same semantics, but with a different implementation behind the scenes. This is not really relevant to the semantics though:
+
+\begin{minipage}[t]{.48\linewidth}
+    \begin{lstlisting}[gobble=8, title=Python 2]
+        >>> [x*2 for x in [1, 2, 3]]
+        [2, 4, 6]
+    \end{lstlisting}
+\end{minipage}
+\,
+\begin{minipage}[t]{.48\linewidth}
+    \begin{lstlisting}[gobble=8, title=Python 3]
+        >>> [x*2 for x in [1, 2, 3]]
+        [2, 4, 6]
+    \end{lstlisting}
+\end{minipage}
+
+The individual steps are different for Python 2 and Python 3, but the overall result is the same.
 
 \end{document}
