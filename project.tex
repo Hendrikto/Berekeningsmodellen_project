@@ -1,7 +1,15 @@
 \documentclass[12pt]{article}
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    style=numeric,
+    citestyle=numeric,
+]{biblatex}
 \usepackage[margin=5em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+
+\addbibresource{bibliography.bib}
 
 \lstset{
     frame=single,
@@ -45,7 +53,7 @@ By combining and nesting list comprehensions, it is possible to implement compli
 
 It defines the Cartesian product in terms of list comprehensions. We want to be able to express this in the language While as well.
 
-We want to use Natural Semantics (NS) to describe list comprehensions in While, because as opposed to Structural Operational Semantics (SOS) it offers a higher level overview over the semantics. SOS is concerned with the individual steps of a computation, while NS describes the overall results. The high level overview is a better fit to describe list comprehensions. Python is a great example of that. Python 2 and Python 3 both offer list comprehensions with the same semantics, but with a different implementation behind the scenes. This is not really relevant to the semantics though:
+We want to use Natural Semantics (NS) to describe list comprehensions in While, because as opposed to Structural Operational Semantics (SOS) it offers a higher level overview over the semantics. SOS is concerned with the individual steps of a computation, while NS describes the overall results \cite{wiley}. The high level overview is a better fit to describe list comprehensions. Python is a great example of that. Python 2 and Python 3 both offer list comprehensions with the same semantics, but with a different implementation behind the scenes. This is not really relevant to the semantics though:
 
 \begin{minipage}[t]{.48\linewidth}
     \begin{lstlisting}[gobble=8, title=Python 2]
@@ -62,5 +70,7 @@ We want to use Natural Semantics (NS) to describe list comprehensions in While, 
 \end{minipage}
 
 The individual steps are different for Python 2 and Python 3, but the overall result is the same.
+
+\printbibliography
 
 \end{document}
