@@ -8,6 +8,7 @@
 \usepackage[margin=5em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{syntax}
 
 \addbibresource{bibliography.bib}
 
@@ -70,6 +71,34 @@ We want to use Natural Semantics (NS) to describe list comprehensions in While, 
 \end{minipage}
 
 The individual steps are different for Python 2 and Python 3, but the overall result is the same.
+
+\section{First Principles}
+
+\subsection{Syntactical extensions}
+
+The syntax we need is given here in Backus-Naur form (BNF). The semantics with applications book uses something very similar to BNF, but it is not quite BNF \cite[section 1.2]{wiley}. We repeat the definitions given in the book here, using BNF.
+
+\begin{grammar}
+    <a> ::= <n>
+    \alt <x>
+    \alt <a1> + <a2>
+    \alt <a1> * <a2>
+    \alt <a1> - <a2>
+
+    <b> ::= "true"
+    \alt "false"
+    \alt <a1> = <a2>
+    \alt $\lnot$<b>
+    \alt <b1> $\land$ <b2>
+
+    <S> ::= <x> := <a>
+    \alt "skip"
+    \alt <S1> ";" <S2>
+    \alt "if" <b> "then" <S1> "else" <S2>
+    \alt "while" <b> "do" <S>
+\end{grammar}
+
+\subsection{Semantical extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
 
 \printbibliography
 
