@@ -8,6 +8,8 @@
 \usepackage[margin=5em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{mathpartir}
+\usepackage{stmaryrd}
 \usepackage{syntax}
 \usepackage{textcomp}
 
@@ -24,6 +26,9 @@
 
 \newcommand\mono\texttt
 \newcommand{\metavar}[1]{\textlangle#1\textrangle}
+\newcommand{\dblbr}[1]{\llbracket#1\rrbracket}
+\renewcommand{\AA}{\mathcal{A}}
+\newcommand{\BB}{\mathcal{B}}
 
 \title{
     Python Comprehensions in While:\\
@@ -83,25 +88,29 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
 \begin{itemize}
     \item \metavar{n} will range over numerals, \textbf{Num},
     \item \metavar{x} will range over variables, \textbf{Var},
-    \item \metavar{a} will range over arithmetic expressions, \textbf{Aexp}
-    \item \metavar{b} will range over boolean expressions, \textbf{Bexp}, and
+    \item \metavar{a} will range over arithmetic expressions, \textbf{Aexp},
+    \item \metavar{b} will range over boolean expressions, \textbf{Bexp},
+    \item \metavar{l} will range over list expressions, \textbf{Lexp}, and
     \item \metavar{S} will range over statements, \textbf{Stm}.
 \end{itemize}
 
 \begin{grammar}
     <a> ::= <n>
     \alt <x>
-    \alt <a1> + <a2>
-    \alt <a1> * <a2>
-    \alt <a1> - <a2>
+    \alt <a1> "+" <a2>
+    \alt <a1> "*" <a2>
+    \alt <a1> "-" <a2>
 
     <b> ::= "true"
     \alt "false"
-    \alt <a1> = <a2>
+    \alt <a1> "=" <a2>
     \alt $\lnot$<b>
     \alt <b1> $\land$ <b2>
 
-    <S> ::= <x> := <a>
+    <l> ::= "[]"
+    \alt <n>":"<l>
+
+    <S> ::= <x> ":=" <a>
     \alt "skip"
     \alt <S1> ";" <S2>
     \alt "if" <b> "then" <S1> "else" <S2>
@@ -109,6 +118,10 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
 \end{grammar}
 
 \subsection{Semantical extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
+
+\begin{mathpar}
+    \inferrule{}{<x:=a, s> \rightarrow s[x \mapsto \AA \dblbr{a}s]}
+\end{mathpar}
 
 \printbibliography
 
