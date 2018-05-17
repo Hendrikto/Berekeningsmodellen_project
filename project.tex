@@ -81,6 +81,15 @@ We want to use Natural Semantics (NS) to describe list comprehensions in While, 
 
 The individual steps are different for Python 2 and Python 3, but the overall result is the same.
 
+Our goal is to eventually show the execution of the following While program:
+
+\begin{lstlisting}
+    x := 1:2:3:[];
+    y := [a * 2 for a in x]
+\end{lstlisting}
+
+Such that given the state $s_{\perp, \perp}$, executing the program will result in the state $s_{1:2:3:[], 1*2:2*2:3*2:[]}$.
+
 \section{First Principles}
 
 \subsection{Syntactical extensions}
