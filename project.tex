@@ -125,7 +125,7 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
     <ll> ::= "[]"
     \alt <a>":"<ll>
 
-    <lc> ::= "["<a> for <x> in <l>"]"
+    <lc> ::= "["<a> for <x> "in" <l>"]"
     \alt "["<a> "for" <x> "in" <y>"]"
 
     <S> ::= <x> ":=" <a>
@@ -140,7 +140,7 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]{}{<x:=a, s> \rightarrow s[x \mapsto \AA \dblbr{a}s]}\\
-    \inferrule*[left={$[\text{ass}_l]$}]{}{<x:=l, s> \rightarrow s[x \mapsto \LL \dblbr{l}]}\\
+    \inferrule*[left={$[\text{ass}_l]$}]{}{<y:=l, s> \rightarrow s[y \mapsto \LL \dblbr{l}]}\\
     \inferrule*[left={$[\text{skip}]$}]{}{<\text{skip}, s> \rightarrow s}\\
     \inferrule*[left={$[\text{comp}]$}]
         {<S1, s> \rightarrow s', <S2, s'> \rightarrow s''}
