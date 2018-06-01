@@ -67,19 +67,10 @@ It defines the Cartesian product in terms of list comprehensions. We want to be 
 
 We want to use Natural Semantics (NS) to describe list comprehensions in While, because as opposed to Structural Operational Semantics (SOS) it offers a higher level overview over the semantics. SOS is concerned with the individual steps of a computation, while NS describes the overall results \cite{wiley}. The high level overview is a better fit to describe list comprehensions. Python is a great example of that. Python 2 and Python 3 both offer list comprehensions with the same semantics, but with a different implementation behind the scenes. This is not really relevant to the semantics though:
 
-\begin{minipage}[t]{.48\linewidth}
-    \begin{lstlisting}[gobble=8, title=Python 2]
-        >>> [x*2 for x in [1, 2, 3]]
-        [2, 4, 6]
-    \end{lstlisting}
-\end{minipage}
-\,
-\begin{minipage}[t]{.48\linewidth}
-    \begin{lstlisting}[gobble=8, title=Python 3]
-        >>> [x*2 for x in [1, 2, 3]]
-        [2, 4, 6]
-    \end{lstlisting}
-\end{minipage}
+\begin{lstlisting}[title=Python 2/3]
+    >>> [x*2 for x in [1, 2, 3]]
+    [2, 4, 6]
+\end{lstlisting}
 
 The individual steps are different for Python 2 and Python 3, but the overall result is the same.
 
@@ -144,7 +135,7 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
 
 \subsubsection{Differences}
 
-In addition to the meta variables that are used by Nielson and Nielson \cite{wiley}, we split the While variables into arithmetic variables and list variables. This allows us to prevent strange construction like
+In addition to the variables that are used by Nielson and Nielson \cite{wiley}, we split the While variables into arithmetic variables and list variables. This allows us to prevent strange construction like
 
 \begin{lstlisting}
     x := 4;
@@ -158,6 +149,8 @@ on a semantical level, so we don't have to deal with them "at run time". This is
 Additionally the definition of list variable \mono{y} begins with a list literal \metavar{ll}, and then continues with a list comprehension \metavar{lc}. The syntax we chose forbids this, as you have to choose between both versions when defining a list \metavar{l}.
 
 \subsection{Semantical extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
+
+\subsubsection{Sematics}
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]{}{<x:=a, s> \rightarrow s[x \mapsto \AA \dblbr{a}s]}\\
@@ -179,6 +172,10 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {}
         {<\text{while } b\ \text{do } S, s> \rightarrow s} \\
 \end{mathpar}
+
+\subsubsection{Differences}
+
+The assignment rule was split into arithmetic assignment, as defined by Nielson and Nielson \cite{wiley}, and list assignment.
 
 \section{Application}
 
