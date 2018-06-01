@@ -51,6 +51,8 @@
 In this document we extend the language While with list comprehensions inspired by Python. We explore the syntactical and semantic changes and additions needed to achieve this. Finally we analyze the extensions we made using a case study of a While program.
 \end{abstract}
 
+\tableofcontents
+
 \section{Introduction}
 Comprehensions are extremely useful for dealing with container types and functional constructs in imperative languages. Python is an example of an imperative language that uses comprehensions, which can be used as more idiomatic versions of \mono{filter} and \mono{map}. They are not limited to this use case though.
 
@@ -96,6 +98,8 @@ Such that given the state $s_{\perp, \perp}$, executing the program will result 
 
 The syntax we need is given here in Backus-Naur form (BNF). The semantics with applications book uses something very similar to BNF, but it is not quite BNF \cite[section 1.2]{wiley}. We repeat the definitions given in the book here, using BNF.
 
+\subsubsection{Metavariables}
+
 \begin{itemize}
     \item \metavar{n} will range over numerals, \textbf{Num},
     \item \metavar{x} will range over arithmetic variables, \textbf{Avar},
@@ -105,6 +109,8 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
     \item \metavar{l} will range over list expressions, \textbf{Lexp}, and
     \item \metavar{S} will range over statements, \textbf{Stm}.
 \end{itemize}
+
+\subsubsection{Syntax}
 
 \begin{grammar}
     <a> ::= <n>
@@ -135,6 +141,21 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
     \alt "while" <b> "do" <S>
     \alt <y> ":=" <l>
 \end{grammar}
+
+\subsubsection{Differences}
+
+In addition to the meta variables that are used by Nielson and Nielson \cite{wiley}, we split the While variables into arithmetic variables and list variables. This allows us to prevent strange construction like
+
+\begin{lstlisting}
+    x := 4;
+    y := 1:2:[z * 2 for z in x]
+\end{lstlisting}
+
+on a semantical level, so we don't have to deal with them "at run time". This is also convenient for the programmer, as a potential While compiler/interpreter could catch these errors early, instead of bailing out when trying to run the program.
+
+\mono{x} is an arithmetic variable, which is not allowed to the the position it does in the above code. This position needs to be filled by either a list \metavar{l} or a list variable \metavar{y}.
+
+Additionally the definition of list variable \mono{y} begins with a list literal \metavar{ll}, and then continues with a list comprehension \metavar{lc}. The syntax we chose forbids this, as you have to choose between both versions when defining a list \metavar{l}.
 
 \subsection{Semantical extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
 
