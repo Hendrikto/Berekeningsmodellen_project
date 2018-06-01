@@ -119,8 +119,13 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
     \alt $\lnot$<b>
     \alt <b1> $\land$ <b2>
 
-    <l> ::= "[]"
-    \alt <n>":"<l>
+    <l> ::= <ll>
+    \alt <lc>
+
+    <ll> ::= "[]"
+    \alt <a>":"<ll>
+
+    <lc> ::= "["<a> for <x> in <l>"]"
     \alt "["<a> "for" <x> "in" <y>"]"
 
     <S> ::= <x> ":=" <a>
