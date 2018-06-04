@@ -180,7 +180,13 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<\text{while b so S}, s> \rightarrow s}\\
     \inferrule*[left={$[\text{lcomp}^{[]}]$}]
         {}
-        {<\text{[a for x in l]}, s> \rightarrow ?}
+        {<\text{[a for x in l]}, s> \rightarrow ?}\\
+    \inferrule*[left={$[\text{lcomp}^{[go]}]$}]
+        {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
+    \inferrule*[left={$[\text{lcomp}^{[mid]}$}]
+        {head: \AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
 \end{mathpar}
 
 Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lexp$, so we also have two state functions.
