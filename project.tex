@@ -168,16 +168,16 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<S1; S2, s> \rightarrow s''} \\
     \inferrule*[left={$[\text{if}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
         {<S1, s> \rightarrow s'}
-        {<\text{if } b\ \text{then } S1\ \text{else } S2, s> \rightarrow s'}\\
+        {<\text{if b then S1 else S2}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{if}^{ff}]$}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {<S2, s> \rightarrow s'}
         {<\text{if b then S1 else S2}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
         {<S, s> \rightarrow s', <\text{while b do S}, s'> \rightarrow s''}
-        {<\text{while b do S}, s> \rightarrow s''} \\
+        {<\text{while b do S}, s> \rightarrow s''}\\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
-        {<\text{while b so S}, s> \rightarrow s} \\
+        {<\text{while b so S}, s> \rightarrow s}\\
     \inferrule*[left={$[\text{lcomp}^{[]}]$}]
         {}
         {<\text{[a for x in l]}, s> \rightarrow ?}
