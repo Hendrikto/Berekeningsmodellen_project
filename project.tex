@@ -35,6 +35,7 @@
 \newcommand{\NN}{\mathcal{N}}
 \newcommand{\Var}{\mathbf{Var}}
 \newcommand{\Avar}{\mathbf{Avar}}
+\newcommand{\Lvar}{\mathbf{Lvar}}
 
 \title{
     Python Comprehensions in While:\\
@@ -98,7 +99,7 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
 \begin{itemize}
     \item \metavar{n} will range over numerals, \textbf{Num},
     \item \metavar{x} will range over arithmetic variables, $\Avar$,
-    \item \metavar{y} will range over list variables, \textbf{Lvar},
+    \item \metavar{y} will range over list variables, $\Lvar$,
     \item \metavar{a} will range over arithmetic expressions, \textbf{Aexp},
     \item \metavar{b} will range over boolean expressions, \textbf{Bexp},
     \item \metavar{l} will range over list expressions, \textbf{Lexp}, and
@@ -186,7 +187,7 @@ Nielson and Nielson define the state function as being of type $\Var \rightarrow
     \item $Astate: \Avar \rightarrow \mathbb{Z}$
 
     This is just the function $State$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
-    \item $Lstate: \mathbf{Lvar} \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
+    \item $Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
 
     This state function is used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
 
