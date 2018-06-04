@@ -177,7 +177,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<\text{while } b\ \text{do } S, s> \rightarrow s''} \\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
-        {<\text{while } b\ \text{do } S, s> \rightarrow s} \\
+        {<\text{while b so S}, s> \rightarrow s} \\
     \inferrule*[left={$[\text{lcomp}^{[]}]$}]
         {}
         {<\text{[a for x in l]}, s> \rightarrow ?}
