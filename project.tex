@@ -2,6 +2,7 @@
 % * definition ENV
 % * redefine \AA and \BB
 % * include changes in the explanation text
+% * change other rules to include ENV
 
 \documentclass[12pt]{article}
 \usepackage{amsmath}
@@ -167,7 +168,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
         {}
-        {\text{<x := a}, s> \rightarrow s[x \mapsto \AA \dblbr{a}s]}\\
+        {<\text{x := a}, s> \rightarrow s[x \mapsto \AA \dblbr{a}s]}\\
     \inferrule*[left={$[\text{ass}_{lc}]$}]
         {ENV \vdash <l, s> \rightarrow ENV' \vdash s}
         {ENV \vdash <\text{y := l}, s> \rightarrow [] \vdash s[y \mapsto \LL \dblbr{ENV'}]}\\
@@ -198,10 +199,10 @@ Additionally the definition of list variable \mono{y} begins with a list literal
     \inferrule*[left={$[\text{lcomp}^{start}]$}]
         {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{mid}$}]
+    \inferrule*[left={$[\text{lcomp}^{mid}]$}]
         {head: \AA \dblbr{a}s[x \mapsto h]:tail \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {head:tail \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{end}$}]
+    \inferrule*[left={$[\text{lcomp}^{end}]$}]
         {}
         {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}
 \end{mathpar}
