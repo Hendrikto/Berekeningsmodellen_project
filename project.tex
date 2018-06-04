@@ -32,6 +32,7 @@
 \renewcommand{\AA}{\mathcal{A}}
 \newcommand{\BB}{\mathcal{B}}
 \newcommand{\LL}{\mathcal{L}}
+\newcommand{\NN}{\mathcal{N}}
 
 \title{
     Python Comprehensions in While:\\
@@ -191,6 +192,13 @@ Nielson and Nielson define the state function as being of type $\mathbf{Var} \ri
 \end{itemize}
 
 The intersection of domains of $Astate$ and $Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable.
+
+We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
+
+$\begin{aligned}
+    f(x) &= \perp & \LL(h:t, n) &= \LL(t, n + 1)[n \mapsto \NN \dblbr{h}]\\
+    \LL(l) &= \LL(l, 0) & \LL([], n) &= f\\
+\end{aligned}$
 
 \subsubsection{Differences}
 
