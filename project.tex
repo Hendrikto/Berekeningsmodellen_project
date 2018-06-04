@@ -33,6 +33,7 @@
 \newcommand{\BB}{\mathcal{B}}
 \newcommand{\LL}{\mathcal{L}}
 \newcommand{\NN}{\mathcal{N}}
+\newcommand{\Var}{\mathbf{Var}}
 
 \title{
     Python Comprehensions in While:\\
@@ -178,7 +179,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<\text{[a for x in l]}, s> \rightarrow ?}
 \end{mathpar}
 
-Nielson and Nielson define the state function as being of type $\mathbf{Var} \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: \textbf{Avar} and \textbf{Lexp}, so we also have two state functions.
+Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: \textbf{Avar} and \textbf{Lexp}, so we also have two state functions.
 
 \begin{itemize}
     \item $Astate: \mathbf{Avar} \rightarrow \mathbb{Z}$
