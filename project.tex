@@ -173,7 +173,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<S2, s> \rightarrow s'}
         {<\text{if b then S1 else S2}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
-        {<S, s> \rightarrow s', <\text{while } b\ \text{do } S, s'> \rightarrow s''}
+        {<S, s> \rightarrow s', <\text{while b do S}, s'> \rightarrow s''}
         {<\text{while b do S}, s> \rightarrow s''} \\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
