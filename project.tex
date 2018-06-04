@@ -36,6 +36,7 @@
 \newcommand{\Var}{\mathbf{Var}}
 \newcommand{\Avar}{\mathbf{Avar}}
 \newcommand{\Lvar}{\mathbf{Lvar}}
+\newcommand{\Lexp}{\mathbf{Lexp}}
 
 \title{
     Python Comprehensions in While:\\
@@ -102,7 +103,7 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
     \item \metavar{y} will range over list variables, $\Lvar$,
     \item \metavar{a} will range over arithmetic expressions, \textbf{Aexp},
     \item \metavar{b} will range over boolean expressions, \textbf{Bexp},
-    \item \metavar{l} will range over list expressions, \textbf{Lexp}, and
+    \item \metavar{l} will range over list expressions, $\Lexp$, and
     \item \metavar{S} will range over statements, \textbf{Stm}.
 \end{itemize}
 
@@ -181,7 +182,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<\text{[a for x in l]}, s> \rightarrow ?}
 \end{mathpar}
 
-Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and \textbf{Lexp}, so we also have two state functions.
+Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lexp$, so we also have two state functions.
 
 \begin{itemize}
     \item $Astate: \Avar \rightarrow \mathbb{Z}$
