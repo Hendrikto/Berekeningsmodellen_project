@@ -157,7 +157,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
 
 \subsection{Semantical extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
 
-\subsubsection{Sematics}
+\subsubsection{Semantics}
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]{}{<x:=a, s> \rightarrow s[x \mapsto \AA \dblbr{a}s]}\\
@@ -174,7 +174,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {<\text{if } b\ \text{then } S1\ \text{else } S2, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
         {<S, s> \rightarrow s', <\text{while } b\ \text{do } S, s'> \rightarrow s''}
-        {<\text{while } b\ \text{do } S, s> \rightarrow s''} \\
+        {<\text{while b do S}, s> \rightarrow s''} \\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
         {<\text{while b so S}, s> \rightarrow s} \\
