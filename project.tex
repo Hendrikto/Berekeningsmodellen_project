@@ -185,7 +185,7 @@ Nielson and Nielson define the state function as being of type $\Var \rightarrow
     After executing the While program \mono{x := 1:2:[]}, $\Lstate(x) = f[0 \mapsto 1, 1 \mapsto 2]$, so that $f(0) = 1, f(1) = 2, f(x > 1) = \perp$
 \end{itemize}
 
-The intersection of domains of $\Astate$ and $\Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable. This way we can safely define $\mathbf{State} = \Astate \cup \Lstate$.
+The intersection of domains of $\Astate$ and $\Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow \Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable. This way we can safely define $\mathbf{State} = \Astate \cup \Lstate$.
 
 We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
 
