@@ -164,6 +164,32 @@ Additionally the definition of list variable \mono{y} begins with a list literal
 
 \subsection{Semantic extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
 
+\subsubsection{State function(s)}
+
+Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lexp$, so we also have two state functions.
+
+\begin{itemize}
+    \item $Astate: \Avar \rightarrow \mathbb{Z}$
+
+    This is just the function $State$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
+    \item $Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
+
+    This state function is used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
+
+    After executing the While program \mono{x := 1:2:[]}, $Lstate(x) = f[0 \mapsto 1, 1 \mapsto 2]$, so that $f(0) = 1, f(1) = 2, f(x > 1) = \perp$
+\end{itemize}
+
+The intersection of domains of $Astate$ and $Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable.
+
+We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
+
+$\begin{aligned}
+    f(x) &= \perp & \LL(h:t, n) &= \LL(t, n + 1)[n \mapsto \NN \dblbr{h}]\\
+    \LL(l) &= \LL(l, 0) & \LL([], n) &= f\\
+\end{aligned}$
+
+\subsubsection{Semantic Functions}
+
 \subsubsection{Semantics}
 
 \begin{mathpar}
@@ -207,28 +233,6 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {}
         {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}
 \end{mathpar}
-
-Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lexp$, so we also have two state functions.
-
-\begin{itemize}
-    \item $Astate: \Avar \rightarrow \mathbb{Z}$
-
-    This is just the function $State$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
-    \item $Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
-
-    This state function is used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
-
-    After executing the While program \mono{x := 1:2:[]}, $Lstate(x) = f[0 \mapsto 1, 1 \mapsto 2]$, so that $f(0) = 1, f(1) = 2, f(x > 1) = \perp$
-\end{itemize}
-
-The intersection of domains of $Astate$ and $Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable.
-
-We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
-
-$\begin{aligned}
-    f(x) &= \perp & \LL(h:t, n) &= \LL(t, n + 1)[n \mapsto \NN \dblbr{h}]\\
-    \LL(l) &= \LL(l, 0) & \LL([], n) &= f\\
-\end{aligned}$
 
 \subsubsection{Differences}
 
