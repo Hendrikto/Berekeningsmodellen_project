@@ -47,6 +47,8 @@
 \newcommand{\Lexp}{\mathbf{Lexp}}
 \newcommand{\Astate}{\mathbf{Astate}}
 \newcommand{\Lstate}{\mathbf{Lstate}}
+\newcommand{\Llit}{\mathbf{Llit}}
+\newcommand{\Lcomp}{\mathbf{Lcomp}}
 
 \title{
     Python Comprehensions in While:\\
@@ -113,7 +115,9 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
     \item \metavar{y} will range over list variables, $\Lvar$,
     \item \metavar{a} will range over arithmetic expressions, \textbf{Aexp},
     \item \metavar{b} will range over boolean expressions, $\Bexp$,
-    \item \metavar{l} will range over list expressions, $\Lexp$, and
+    \item \metavar{l} will range over list expressions, $\Lexp = \Llit \cup \Lcomp$,
+    \item \metavar{ll} will range over list literals, $\Llit$,
+    \item \metavar{lc} will range over list comprehensions, $\Lcomp$, and
     \item \metavar{S} will range over statements, \textbf{Stm}.
 \end{itemize}
 
@@ -184,6 +188,8 @@ Nielson and Nielson define the state function as being of type $\Var \rightarrow
 The intersection of domains of $Astate$ and $Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable.
 
 We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
+
+$$\LL: \Llit \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$$
 
 $\begin{aligned}
     f(x) &= \perp & \LL(h:t, n) &= \LL(t, n + 1)[n \mapsto \NN \dblbr{h}]\\
