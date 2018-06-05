@@ -16,6 +16,7 @@
 \usepackage[margin=5em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{lscape}
 \usepackage{mathpartir}
 \usepackage{stmaryrd}
 \usepackage{syntax}
@@ -327,18 +328,26 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
 
 $s_{x, y}$ means that l has value $x$, and y has value $y$.
 
+\begin{landscape}
 \begin{mathpar}
     \inferrule*[right={$[\text{comp}]$}]
-        {\inferrule*[right={???}]
+        {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
             {[] \vdash <\text{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow [] \vdash s_{1:2[], \perp}}
-        ,\quad
-        \inferrule*[right={???}]
-            {}
+        ,
+        \inferrule*[right={$[\text{ass}_{lc}]$}]
+            {\inferrule*[right={$[\text{lcomp}^{start}]$}]
+                {\inferrule*[right={$[\text{lcomp}^{end}]$}]
+                    {}
+                    {2:3:[] \vdash <\text{[x + 1 for x in []]}, s> \rightarrow 2:3:[] \vdash s}
+                }
+                {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+            }
             {[] \vdash <\text{y := [x + 1 for x in l]}, s> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
         }
         {[] \vdash <\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
 \end{mathpar}
+\end{landscape}
 
 \printbibliography
 
