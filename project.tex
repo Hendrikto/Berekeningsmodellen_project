@@ -194,7 +194,7 @@ The semantics of $\AA$ and $\BB$ are identical to the version in the book, only 
 
 $$\AA: \Aexp \rightarrow (\Astate \rightarrow \mathbb{Z})$$
 
-$\BB: \Bexp \rightarrow (\Astate \rightarrow \mathbb{T})$$
+$$\BB: \Bexp \rightarrow (\Astate \rightarrow \mathbb{T})$$
 
 \subsubsection{Semantics}
 
@@ -292,7 +292,13 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
 
 \begin{mathpar}
     \inferrule*[right={$[\text{lcomp}^{start}]$}]
-        {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+        {\inferrule*[right={$[\text{lcomp}^{mid}]$}]
+            {\inferrule*[right={$[\text{lcomp}^{end}]$}]
+                {}
+                {2:3:[] \vdash <\text{[x + 1 for x in []]}, s> \rightarrow 2:3:[] \vdash s}
+            }
+            {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+        }
         {[] \vdash <\text{[x + 1 for x in 1:2:[]]}, s> \rightarrow 2:3:[] \vdash s}
 \end{mathpar}
 
