@@ -94,7 +94,7 @@ Our goal is to eventually show the execution of the following While program:
     y := [a * 2 for a in x]
 \end{lstlisting}
 
-Such that given the state $s_{\perp, \perp}$, executing the program will result in the state $s_{1:2:3:[], 1*2:2*2:3*2:[]}$.
+Such that given the state $s_{\perp, \perp}$, executing the program will result in the state $s_{1:2:3:[], 2:4:6:[]}$.
 
 \section{First Principles}
 
@@ -174,7 +174,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {ENV \vdash <\text{y := l}, s> \rightarrow [] \vdash s[y \mapsto \LL \dblbr{ENV'}]}\\
     \inferrule*[left={$[\text{ass}_{ll}]$}]
         {}
-        {ENV \vdash <\text{y := l}, s} \rightarrow ENV \vdash s[y \mapsto \LL \dblbr{l}]\\
+        {ENV \vdash <\text{y := l}, s> \rightarrow ENV \vdash s[y \mapsto \LL \dblbr{l}]}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
         {<\text{skip}, s> \rightarrow s}\\
