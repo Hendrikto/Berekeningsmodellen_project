@@ -175,17 +175,17 @@ Additionally the definition of list variable \mono{y} begins with a list literal
 Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lvar$, so we also have two state functions.
 
 \begin{itemize}
-    \item $Astate: \Avar \rightarrow \mathbb{Z}$
+    \item $\Astate: \Avar \rightarrow \mathbb{Z}$
 
     This is just the function $State$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
-    \item $Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
+    \item $\Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
 
     This state function is used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
 
-    After executing the While program \mono{x := 1:2:[]}, $Lstate(x) = f[0 \mapsto 1, 1 \mapsto 2]$, so that $f(0) = 1, f(1) = 2, f(x > 1) = \perp$
+    After executing the While program \mono{x := 1:2:[]}, $\Lstate(x) = f[0 \mapsto 1, 1 \mapsto 2]$, so that $f(0) = 1, f(1) = 2, f(x > 1) = \perp$
 \end{itemize}
 
-The intersection of domains of $Astate$ and $Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable.
+The intersection of domains of $\Astate$ and $\Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable. This way we can safely define $\mathbf{State} = \Astate \cup \Lstate$.
 
 We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
 
@@ -196,11 +196,7 @@ $\begin{aligned}
     \LL(l) &= \LL(l, 0) & \LL([], n) &= f\\
 \end{aligned}$
 
-The semantics of $\AA$ and $\BB$ are identical to the version in the book, only $\mathbf{State}$ has been renamed to $\Astate$:
-
-$$\AA: \Aexp \rightarrow (\Astate \rightarrow \mathbb{Z})$$
-
-$$\BB: \Bexp \rightarrow (\Astate \rightarrow \mathbb{T})$$
+The semantics of $\AA$, $\BB$, and $\NN$ are identical to the version in the book.
 
 \subsubsection{Semantics}
 
@@ -240,7 +236,10 @@ $$\BB: \Bexp \rightarrow (\Astate \rightarrow \mathbb{T})$$
         {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{end}]$}]
         {}
-        {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}
+        {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}\\
+    \inferrule*[left={$[\text{lcomp}^{var}]$}]
+        {ENV \vdash <\text{[a for x in } \Lstate(y)], s> \rightarrow ENV \vdash s}
+        {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}
 \end{mathpar}
 
 \subsubsection{Differences}
@@ -306,6 +305,14 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
             {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
         }
         {[] \vdash <\text{[x + 1 for x in 1:2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+\end{mathpar}
+
+\subsection{List comprehension with list variable}
+
+\begin{mathpar}
+    \inferrule*[right={$[\text{comp}]$}]
+        {}
+        {[] \vdash <\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
 \end{mathpar}
 
 \printbibliography
