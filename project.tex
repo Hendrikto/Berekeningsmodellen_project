@@ -220,9 +220,6 @@ $\begin{aligned}
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
         {ENV \vdash <\text{while b so S}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{[]}]$}]
-        {}
-        {<\text{[a for x in l]}, s> \rightarrow ?}\\
     \inferrule*[left={$[\text{lcomp}^{start}]$}]
         {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
@@ -237,6 +234,44 @@ $\begin{aligned}
 \subsubsection{Differences}
 
 The assignment rule was split into arithmetic assignment, as defined by Nielson and Nielson \cite{wiley}, and list assignment.
+
+Additionally, we added rules to perform list comprehensions in While.
+During the list comprehension, we use an ENV, where we build a list corresponding to the rule.
+At the end, when the editing is done, the list will be copied from the ENV and used further on.
+We use three different rules for this, as we have three different cases (start, mid and end).
+The $[lcomp^{start}]$ rule looks as follows:
+
+\begin{mathpar}
+    \inferrule*[left={$[\text{lcomp}^{start}]$}]
+        {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\end{mathpar}
+
+Before we apply this rule, our ENV initially contains an empty list.
+For this we use the $\Aexp$ a on the first element (the head or h) in the list we want to edit and add the outcome ($\AA \dblbr{a}s[x \mapsto h]$) to our ENV list as the first element.
+We then need to remove the head element of our h:t list, as we now already considered this element.
+
+After this first step, we need to use the $[lcomp^{mid}]$ rule as long as the h:t list still contains any elements:
+\begin{mathpar}
+    \inferrule*[left={$[\text{lcomp}^{mid}]$}]
+        {head:\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}
+\end{mathpar}
+
+This rule almost works the same as the first rule, but now we already have a non-empty list in our ENV on the left side.
+When applying this rule, we again take the head element from the h:t list and apply the $\Aexp$ a on it.
+We then receive an outcome of the form $\AA \dblbr{a}s[x \mapsto h]$, which we add as the new element at the end of the ENV list.
+Also we need to delete this h element from our initial list h:t.
+We use this rule as long as h:t matches, meaning that the list is not empty.
+
+When the list matches \mono{[]}, which means it is empty, we have to use our last rule $[lcomp^{end}]$, which looks like the following:
+
+\begin{mathpar}
+    \inferrule*[left={$[\text{lcomp}^{end}]$}]
+        {}
+        {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}
+\end{mathpar}
+
+This rule finalizes the building of the new list in ENV and "saves" it in the ENV on the right side, which is then used further on in the whole computation.
 
 \section{Application}
 
