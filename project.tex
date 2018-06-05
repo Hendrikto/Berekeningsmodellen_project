@@ -168,7 +168,7 @@ Additionally the definition of list variable \mono{y} begins with a list literal
 
 \subsubsection{Semantic Functions}
 
-Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lexp$, so we also have two state functions.
+Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lvar$, so we also have two state functions.
 
 \begin{itemize}
     \item $Astate: \Avar \rightarrow \mathbb{Z}$
@@ -189,6 +189,12 @@ $\begin{aligned}
     f(x) &= \perp & \LL(h:t, n) &= \LL(t, n + 1)[n \mapsto \NN \dblbr{h}]\\
     \LL(l) &= \LL(l, 0) & \LL([], n) &= f\\
 \end{aligned}$
+
+The semantics of $\AA$ and $\BB$ are identical to the version in the book, only $\mathbf{State}$ has been renamed to $\Astate$:
+
+$$\AA: \Aexp \rightarrow (\Astate \rightarrow \mathbb{Z})$$
+
+$\BB: \Bexp \rightarrow (\Astate \rightarrow \mathbb{T})$$
 
 \subsubsection{Semantics}
 
@@ -280,6 +286,14 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
 
 \begin{mathpar}
     \inferrule*[right={$[\text{ass}_l]$}]{}{<a := [], s_\perp> \rightarrow s_{[]}}
+\end{mathpar}
+
+\subsection{List comprehension with literal list}
+
+\begin{mathpar}
+    \inferrule*[right={$[\text{lcomp}^{start}]$}]
+        {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+        {[] \vdash <\text{[x + 1 for x in 1:2:[]]}, s> \rightarrow 2:3:[] \vdash s}
 \end{mathpar}
 
 \printbibliography
