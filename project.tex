@@ -284,6 +284,20 @@ When the list matches \mono{[]}, which means it is empty, we have to use our las
 
 This rule finalizes the building of the new list in ENV and "saves" it in the ENV on the right side, which is then used further on in the whole computation.
 
+These rules only apply if we have a "base list" in a list literal format (e.g. 1:2:[]).
+If we have a rule containing \textit{a for x in y}, where y is a list variable, we cannot apply the three rules explained above.
+To solve this, we added another rule to translate the list variable y back to the list literal format.
+This rule is the following:
+
+\begin{mathpar}
+    \inferrule*[left={$[\text{lcomp}^{var}]$}]
+        {ENV \vdash <\text{[a for x in } \Lstate(y)], s> \rightarrow ENV \vdash s}
+        {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}
+\end{mathpar}
+
+This rule applies if we have a list variable in our base list in the list comprehension.
+It will prepare the rule such that we can apply our other rules for the list comprehensions, which all demand a list literal.
+
 \section{Application}
 
 \subsection{List assignment}
