@@ -329,7 +329,14 @@ $s_{x, y}$ means that l has value $x$, and y has value $y$.
 
 \begin{mathpar}
     \inferrule*[right={$[\text{comp}]$}]
-        {[] \vdash <\text{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow [] \vdash s_{1:2[], \perp}, \quad [] \vdash <\text{y := [x + 1 for x in l]}, s> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
+        {\inferrule*[right={???}]
+            {}
+            {[] \vdash <\text{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow [] \vdash s_{1:2[], \perp}}
+        ,\quad
+        \inferrule*[right={???}]
+            {}
+            {[] \vdash <\text{y := [x + 1 for x in l]}, s> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
+        }
         {[] \vdash <\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
 \end{mathpar}
 
