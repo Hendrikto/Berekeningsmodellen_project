@@ -42,6 +42,7 @@
 \newcommand{\Var}{\mathbf{Var}}
 \newcommand{\Avar}{\mathbf{Avar}}
 \newcommand{\Lvar}{\mathbf{Lvar}}
+\newcommand{\Aexp}{\mathbf{Aexp}}
 \newcommand{\Bexp}{\mathbf{Bexp}}
 \newcommand{\Lexp}{\mathbf{Lexp}}
 
@@ -161,7 +162,7 @@ on a semantical level, so we don't have to deal with them "at run time". This is
 
 Additionally the definition of list variable \mono{y} begins with a list literal \metavar{ll}, and then continues with a list comprehension \metavar{lc}. The syntax we chose forbids this, as you have to choose between both versions when defining a list \metavar{l}.
 
-\subsection{Semantical extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
+\subsection{Semantic extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
 
 \subsubsection{Semantics}
 
@@ -185,11 +186,11 @@ Additionally the definition of list variable \mono{y} begins with a list literal
         {ENV \vdash <S1, s> \rightarrow ENV' \vdash s'}
         {ENV \vdash <\text{if b then S1 else S2}, s> \rightarrow ENV' \vdash s'}\\
     \inferrule*[left={$[\text{if}^{ff}]$}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
-        {<S2, s> \rightarrow s'}
-        {<\text{if b then S1 else S2}, s> \rightarrow s'}\\
+        {ENV \vdash <S2, s> \rightarrow ENV' \vdash s'}
+        {ENV \vdash <\text{if b then S1 else S2}, s> \rightarrow ENV' \vdash s'}\\
     \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
-        {<S, s> \rightarrow s', <\text{while b do S}, s'> \rightarrow s''}
-        {<\text{while b do S}, s> \rightarrow s''}\\
+        {ENV \vdash <S, s> \rightarrow ENV' \vdash s', ENV' \vdash <\text{while b do S}, s'> \rightarrow ENV'' \vdash s''}
+        {ENV \vdash <\text{while b do S}, s> \rightarrow ENV'' \vdash s''}\\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
         {<\text{while b so S}, s> \rightarrow s}\\
