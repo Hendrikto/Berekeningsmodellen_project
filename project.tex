@@ -103,7 +103,7 @@ Such that given the state $s_{\perp, \perp}$, executing the program will result 
 
 \subsection{Syntactical extensions}
 
-The syntax we need is given here in Backus-Naur form (BNF). The semantics with applications book uses something very similar to BNF, but it is not quite BNF \cite[section 1.2]{wiley}. We repeat the definitions given in the book here, using BNF.
+The syntax we need is given here in Backus-Naur form (BNF). The semantics with applications book uses something very similar to BNF, but it is not quite BNF \cite[section 1.2]{wiley}. We repeat the definitions given in the book here, using BNF, even if they did not change, for convenience.
 
 \subsubsection{Metavariables}
 
@@ -175,7 +175,7 @@ Nielson and Nielson define the state function as being of type $\Var \rightarrow
 \begin{itemize}
     \item $\Astate: \Avar \rightarrow \mathbb{Z}$
 
-    This is just the function $State$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
+    This is just the function $\mathbf{State}$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
     \item $\Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
 
     This state function is used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
@@ -285,13 +285,13 @@ When the list matches \mono{[]}, which means it is empty, we have to use our las
 This rule finalizes the building of the new list in ENV and "saves" it in the ENV on the right side, which is then used further on in the whole computation.
 
 These rules only apply if we have a "base list" in a list literal format (e.g. 1:2:[]).
-If we have a rule containing \textit{a for x in y}, where y is a list variable, we cannot apply the three rules explained above.
-To solve this, we added another rule to translate the list variable y back to the list literal format.
+If we have a rule containing \mono{a for x in y}, where \mono{y} is a list variable, we cannot apply the three rules explained above.
+To solve this, we added another rule to translate the list variable \mono{y} back to the list literal format.
 This rule is the following:
 
 \begin{mathpar}
     \inferrule*[left={$[\text{lcomp}^{var}]$}]
-        {ENV \vdash <\text{[a for x in } \Lstate(y)], s> \rightarrow ENV \vdash s}
+        {ENV \vdash <\text{[a for x in } \Lstate(\text{y})], s> \rightarrow ENV \vdash s}
         {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}
 \end{mathpar}
 
