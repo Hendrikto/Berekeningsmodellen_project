@@ -33,6 +33,7 @@
 \newcommand\mono\texttt
 \newcommand{\metavar}[1]{\textlangle#1\textrangle}
 \newcommand{\dblbr}[1]{\llbracket#1\rrbracket}
+\newcommand{\fancybr}[2]{#1 \dblbr{#2}}
 \renewcommand{\AA}{\mathcal{A}}
 \newcommand{\BB}{\mathcal{B}}
 \newcommand{\LL}{\mathcal{L}}
@@ -190,8 +191,8 @@ We also introduced a new function $\LL$, which translates between list expressio
 $$\LL: \Llit \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$$
 
 $\begin{aligned}
-    f(x) &= \perp & \LL(h:t, n) &= \LL(t, n + 1)[n \mapsto \NN \dblbr{h}]\\
-    \LL(l) &= \LL(l, 0) & \LL([], n) &= f\\
+    f(x) &= \perp & \fancybr{\LL}{h:t, n} &= \fancybr{\LL}{t, n + 1}[n \mapsto \fancybr{\NN}{h}]\\
+    \fancybr{\LL}{l} &= \fancybr{\LL}{l, 0} & \fancybr{\LL}{\texttt{[]}, n} &= f\\
 \end{aligned}$
 
 The semantics of $\AA$, $\BB$, and $\NN$ are identical to the version in the book.
@@ -201,36 +202,36 @@ The semantics of $\AA$, $\BB$, and $\NN$ are identical to the version in the boo
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
         {}
-        {ENV \vdash <\text{x := a}, s> \rightarrow ENV \vdash s[x \mapsto \AA \dblbr{a}s]}\\
+        {ENV \vdash <\text{x := a}, s> \rightarrow ENV \vdash s[x \mapsto \fancybr{\AA}{a}s]}\\
     \inferrule*[left={$[\text{ass}_{lc}]$}]
         {ENV \vdash <l, s> \rightarrow ENV' \vdash s}
-        {ENV \vdash <\text{y := l}, s> \rightarrow [] \vdash s[y \mapsto \LL \dblbr{ENV'}]}\\
+        {ENV \vdash <\text{y := l}, s> \rightarrow [] \vdash s[y \mapsto \fancybr{\LL}{ENV'}]}\\
     \inferrule*[left={$[\text{ass}_{ll}]$}]
         {}
-        {ENV \vdash <\text{y := l}, s> \rightarrow ENV \vdash s[y \mapsto \LL \dblbr{l}]}\\
+        {ENV \vdash <\text{y := l}, s> \rightarrow ENV \vdash s[y \mapsto \fancybr{\LL}{l}]}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
         {ENV \vdash <\text{skip}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{comp}]$}]
         {ENV \vdash <S1, s> \rightarrow ENV' \vdash s', ENV' \vdash <S2, s'> \rightarrow ENV'' \vdash s''}
         {ENV \vdash <S1; S2, s> \rightarrow ENV'' \vdash s''} \\
-    \inferrule*[left={$[\text{if}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
+    \inferrule*[left={$[\text{if}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
         {ENV \vdash <S1, s> \rightarrow ENV' \vdash s'}
         {ENV \vdash <\text{if b then S1 else S2}, s> \rightarrow ENV' \vdash s'}\\
-    \inferrule*[left={$[\text{if}^{ff}]$}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
+    \inferrule*[left={$[\text{if}^{ff}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
         {ENV \vdash <S2, s> \rightarrow ENV' \vdash s'}
         {ENV \vdash <\text{if b then S1 else S2}, s> \rightarrow ENV' \vdash s'}\\
-    \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\BB \dblbr{b}s = \mathbf{tt}$}]
+    \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
         {ENV \vdash <S, s> \rightarrow ENV' \vdash s', ENV' \vdash <\text{while b do S}, s'> \rightarrow ENV'' \vdash s''}
         {ENV \vdash <\text{while b do S}, s> \rightarrow ENV'' \vdash s''}\\
-    \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
+    \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
         {}
         {ENV \vdash <\text{while b so S}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{start}]$}]
-        {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{mid}]$}]
-        {head: \AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {head: \fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{end}]$}]
         {}
@@ -254,23 +255,23 @@ The $[lcomp^{start}]$ rule looks as follows:
 
 \begin{mathpar}
     \inferrule*[left={$[\text{lcomp}^{start}]$}]
-        {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\end{mathpar}
 
 Before we apply this rule, our ENV initially contains an empty list.
-For this we use the $\Aexp$ a on the first element (the head or h) in the list we want to edit and add the outcome ($\AA \dblbr{a}s[x \mapsto h]$) to our ENV list as the first element.
+For this we use the $\Aexp$ a on the first element (the head or h) in the list we want to edit and add the outcome ($\fancybr{AA}{a}s[x \mapsto h]$) to our ENV list as the first element.
 We then need to remove the head element of our h:t list, as we now already considered this element.
 
 After this first step, we need to use the $[lcomp^{mid}]$ rule as long as the h:t list still contains any elements:
 \begin{mathpar}
     \inferrule*[left={$[\text{lcomp}^{mid}]$}]
-        {head:\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {head:\fancybr{AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}
 \end{mathpar}
 
 This rule almost works the same as the first rule, but now we already have a non-empty list in our ENV on the left side.
 When applying this rule, we again take the head element from the h:t list and apply the $\Aexp$ a on it.
-We then receive an outcome of the form $\AA \dblbr{a}s[x \mapsto h]$, which we add as the new element at the end of the ENV list.
+We then receive an outcome of the form $\fancybr{AA}{a}s[x \mapsto h]$, which we add as the new element at the end of the ENV list.
 Also we need to delete this h element from our initial list h:t.
 We use this rule as long as h:t matches, meaning that the list is not empty.
 
