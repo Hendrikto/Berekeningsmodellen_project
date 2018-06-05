@@ -45,6 +45,8 @@
 \newcommand{\Aexp}{\mathbf{Aexp}}
 \newcommand{\Bexp}{\mathbf{Bexp}}
 \newcommand{\Lexp}{\mathbf{Lexp}}
+\newcommand{\Astate}{\mathbf{Astate}}
+\newcommand{\Lstate}{\mathbf{Lstate}}
 
 \title{
     Python Comprehensions in While:\\
@@ -217,7 +219,7 @@ $\begin{aligned}
         {ENV \vdash <\text{while b do S}, s> \rightarrow ENV'' \vdash s''}\\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\BB \dblbr{b}s = \mathbf{ff}$}]
         {}
-        {<\text{while b so S}, s> \rightarrow s}\\
+        {ENV \vdash <\text{while b so S}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{[]}]$}]
         {}
         {<\text{[a for x in l]}, s> \rightarrow ?}\\
@@ -225,8 +227,8 @@ $\begin{aligned}
         {\AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
         {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{mid}]$}]
-        {head: \AA \dblbr{a}s[x \mapsto h]:tail \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
-        {head:tail \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
+        {head: \AA \dblbr{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
+        {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{end}]$}]
         {}
         {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}
