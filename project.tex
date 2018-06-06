@@ -340,19 +340,22 @@ $s_{x, y}$ means that l has value $x$, and y has value $y$.
     \inferrule*[right={$[\text{comp}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {[] \vdash <\text{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow [] \vdash s_{1:2[], \perp}}
+            {[] \vdash <\text{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow [] \vdash s_{1:2:[], \perp}}
         ,
         \inferrule*[right={$[\text{ass}_{lc}]$}]
-            {\inferrule*[right={$[\text{lcomp}^{start}]$}]
-                {\inferrule*[right={$[\text{lcomp}^{end}]$}]
-                    {}
-                    {2:3:[] \vdash <\text{[x + 1 for x in []]}, s> \rightarrow 2:3:[] \vdash s}
+            {\inferrule*[right={$[\text{lcomp}^{var}]$}]
+                {\inferrule*[right={$[\text{lcomp}^{start}]$}]
+                    {\inferrule*[right={$[\text{lcomp}^{end}]$}]
+                        {}
+                        {2:3:[] \vdash <\text{[x + 1 for x in []]}, s_{1:2[], \perp}> \rightarrow 2:3:[] \vdash s_{1:2[], \perp}}
+                    }
+                    {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s_{1:2[], \perp}> \rightarrow 2:3:[] \vdash s_{1:2[], \perp}}
                 }
-                {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+                {[] \vdash <\text{[x + 1 for x in 1:2:[]}, s_{1:2[], \perp}> \rightarrow 2:3:[] \vdash s_{1:2[], \perp}}
             }
-            {[] \vdash <\text{y := [x + 1 for x in l]}, s> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
+            {[] \vdash <\text{y := [x + 1 for x in l]}, s_{1:2[], \perp}> \rightarrow [] \vdash s_{1:2:[], 2:3:[]}}
         }
-        {[] \vdash <\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow []? \vdash s_{1:2:[], 2:3:[]}}
+        {[] \vdash <\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow [] \vdash s_{1:2:[], 2:3:[]}}
 \end{mathpar}
 \end{landscape}
 
