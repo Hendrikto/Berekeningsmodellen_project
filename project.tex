@@ -239,9 +239,12 @@ The semantics of $\AA$, $\BB$, and $\NN$ are identical to the version in the boo
     \inferrule*[left={$[\text{lcomp}^{var}]$}]
         {ENV \vdash <\text{[a for x in } \Lstate(y)], s> \rightarrow ENV \vdash s}
         {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{tt}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}$}]
-        {[]: \fancybr{\AA}{a}s[x \mapsto h] \vdash <\text{[a for x in t:[] if b]}, s> \rightarrow ENV \vdash s}
-        {[] \vdash <\text{[a for x in h:t:[] if b]},s> \rightarrow ENV \vdash s}\\
+    \inferrule*[left={$[\text{lcomp}^{tt\_start}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}$}]
+        {\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t if b]}, s> \rightarrow ENV \vdash s}
+        {[] \vdash <\text{[a for x in h:t if b]},s> \rightarrow ENV \vdash s}\\
+    \inferrule*[left={$[\text{lcomp}^{tt\_mid}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}$}]
+        {head:\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t if b]}, s> \rightarrow ENV \vdash s}
+        {head:[]  \vdash <\text{[a for x in h:t if b]},s> \rightarrow ENV \vdash s}\\
     \inferrule*[left={$[\text{lcomp}^{ff}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{ff}$}]
         {ENV \vdash <\text{[a for x in t:[] if b]}, s> \rightarrow ENV' \vdash s'}
         {ENV \vdash <\text{[a for x in h:t:[] if b]},s> \rightarrow ENV' \vdash s'}\\
