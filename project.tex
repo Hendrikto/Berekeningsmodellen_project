@@ -36,6 +36,7 @@
 \newcommand{\fancybr}[2]{#1 \dblbr{#2}}
 \renewcommand{\AA}{\mathcal{A}}
 \newcommand{\BB}{\mathcal{B}}
+\newcommand{\CC}{\mathcal{C}}
 \newcommand{\LL}{\mathcal{L}}
 \newcommand{\NN}{\mathcal{N}}
 \newcommand{\Var}{\mathbf{Var}}
@@ -186,7 +187,7 @@ Nielson and Nielson define the state function as being of type $\Var \rightarrow
 
 The intersection of domains of $\Astate$ and $\Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow \Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable. This way we can safely define $\mathbf{State} = \Astate \cup \Lstate$.
 
-We also introduced a new function $\LL$, which translates between list expressions and the function representation we chose that defines the list.
+We also introduced a new function $\LL$, which translates between list literal expressions \metavar{ll} and the function representation we chose that defines the list.
 
 $$\LL: \Llit \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$$
 
@@ -196,6 +197,8 @@ $\begin{aligned}
 \end{aligned}$
 
 The semantics of $\AA$, $\BB$, and $\NN$ are identical to the version in the book.
+
+There are list comprehensions \metavar{lc} as well, which need to be converted to list literals \metavar{ll}. The converter function $\CC$ takes care of that.
 
 \subsubsection{Semantics}
 
