@@ -224,8 +224,8 @@ $\begin{aligned}
         {}
         {<\text{y := ll}, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
     \inferrule*[left={$[\text{ass}_{lc}]$}]
-        {}
-        {<\text{y := lc}, s> \rightarrow s[y \mapsto \fancybr{\LL}{\fancybr{\CC}{lc} s}]}\\
+        {<\text{y := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
+        {<\text{y := lc}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
         {ENV \vdash <\text{skip}, s> \rightarrow ENV \vdash s}\\
