@@ -219,13 +219,13 @@ $\begin{aligned}
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
         {}
-        {ENV \vdash <\text{x := a}, s> \rightarrow ENV \vdash s[x \mapsto \fancybr{\AA}{a}s]}\\
-    \inferrule*[left={$[\text{ass}_{lc}]$}]
-        {ENV \vdash <l, s> \rightarrow ENV' \vdash s}
-        {ENV \vdash <\text{y := l}, s> \rightarrow [] \vdash s[y \mapsto \fancybr{\LL}{ENV'}]}\\
+        {<\text{x := a}, s> \rightarrow s[x \mapsto \fancybr{\AA}{a}s]}\\
     \inferrule*[left={$[\text{ass}_{ll}]$}]
         {}
-        {ENV \vdash <\text{y := l}, s> \rightarrow ENV \vdash s[y \mapsto \fancybr{\LL}{l}]}\\
+        {<\text{y := ll}, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
+    \inferrule*[left={$[\text{ass}_{lc}]$}]
+        {}
+        {<\text{y := lc}, s> \rightarrow s[y \mapsto \fancybr{\LL}{\fancybr{\CC}{lc} s}]}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
         {ENV \vdash <\text{skip}, s> \rightarrow ENV \vdash s}\\
