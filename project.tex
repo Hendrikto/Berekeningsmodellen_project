@@ -228,10 +228,10 @@ $\begin{aligned}
         {<\text{y := lc}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
-        {ENV \vdash <\text{skip}, s> \rightarrow ENV \vdash s}\\
+        {<\text{skip}, s> \rightarrow s}\\
     \inferrule*[left={$[\text{comp}]$}]
-        {ENV \vdash <S1, s> \rightarrow ENV' \vdash s', ENV' \vdash <S2, s'> \rightarrow ENV'' \vdash s''}
-        {ENV \vdash <S1; S2, s> \rightarrow ENV'' \vdash s''} \\
+        {<S1, s> \rightarrow s', <S2, s'> \rightarrow s''}
+        {<S1; S2, s> \rightarrow s''} \\
     \inferrule*[left={$[\text{if}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
         {ENV \vdash <S1, s> \rightarrow ENV' \vdash s'}
         {ENV \vdash <\text{if b then S1 else S2}, s> \rightarrow ENV' \vdash s'}\\
