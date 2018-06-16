@@ -203,6 +203,17 @@ There are list comprehensions \metavar{lc} as well, which need to be converted t
 
 $\CC: \Lcomp \rightarrow \State \rightarrow \Llit$
 
+$\begin{aligned}
+    \CC \dblbr{[\text{a for x in l}]} s &= \CC \dblbr{[\text{a for x in l if true}]} s\\
+    \CC \dblbr{[\text{a for x in [] if b}]} s &= []\\
+    \CC \dblbr{[\text{a for x in h:t if b}]} s &= \begin{cases}
+        \AA \dblbr{a} s[x \mapsto h] : \CC \dblbr{[\text{a for x in t if b}]} s
+        & \text{if } \BB \dblbr{b} s[x \mapsto h] = \mathbf{tt}\\
+        \CC \dblbr{[\text{a for x in t if b}]} s
+        & \text{if } \BB \dblbr{b} s[x \mapsto h] = \mathbf{ff}\\
+    \end{cases}\\
+\end{aligned}$
+
 \subsubsection{Semantics}
 
 \begin{mathpar}
