@@ -204,7 +204,7 @@ There are list comprehensions \metavar{lc} as well, which need to be converted t
 $\CC: \Lcomp \rightarrow \State \rightarrow \Llit$
 
 $\begin{aligned}
-    \fancybr{\CC}{[\text{a for x in l}]} s &= \fancybr{\CC}{[\text{a for x in l if true}]} s\\
+    \fancybr{\CC}{[\text{a for x in ll}]} s &= \fancybr{\CC}{[\text{a for x in ll if true}]} s\\
     \fancybr{\CC}{[\text{a for x in [] if b}]} s &= []\\
     \fancybr{\CC}{[\text{a for x in h:t if b}]} s &= \begin{cases}
         \fancybr{\AA}{a} s[x \mapsto h] : \fancybr{\CC}{[\text{a for x in t if b}]} s
