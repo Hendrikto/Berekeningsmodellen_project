@@ -337,16 +337,23 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
 \subsection{List comprehension with list literal}
 
 \begin{mathpar}
-    \inferrule*[right={$[\text{lcomp}^{start}]$}]
-        {\inferrule*[right={$[\text{lcomp}^{mid}]$}]
-            {\inferrule*[right={$[\text{lcomp}^{end}]$}]
-                {}
-                {2:3:[] \vdash <\text{[x + 1 for x in []]}, s> \rightarrow 2:3:[] \vdash s}
-            }
-            {2:[] \vdash <\text{[x + 1 for x in 2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+    \inferrule*[right={$[\text{ass}_{lc}]$}]
+        {\inferrule*[right={$[\text{ass}_{ll}]$}]
+            {}
+            {<\text{y := 2:3:[]}, s_\perp> \rightarrow s_{2:3:[]}}
         }
-        {[] \vdash <\text{[x + 1 for x in 1:2:[]]}, s> \rightarrow 2:3:[] \vdash s}
+        {<\text{y := [x + 1 for x in 1:2:[]]}, s_\perp> \rightarrow s_{2:3:[]}}
 \end{mathpar}
+
+Because
+
+$\begin{aligned}
+    \fancybr{\CC}{[\text{x + 1 for x in 1:2:[]}]} s_\perp
+    &= \fancybr{\CC}{[\text{x + 1 for x in 1:2:[] if true}]} s_\perp\\
+    &= 2 : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_\perp\\
+    &= 2 : 3 : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_\perp\\
+    &= 2 : 3 : []\\
+\end{aligned}$
 
 \subsection{List comprehension with list variable}
 
