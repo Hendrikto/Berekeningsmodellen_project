@@ -327,11 +327,11 @@ It will prepare the rule such that we can apply our other rules for the list com
 
 \section{Application}
 
-\subsection{List assignment}
+\subsection{List literal}
 $s_x$ means that variable $a$ has the value $x$ in state $s$.
 
 \begin{mathpar}
-    \inferrule*[right={$[\text{ass}_l]$}]{}{<a := [], s_\perp> \rightarrow s_{[]}}
+    \inferrule*[right={$[\text{ass}_{ll}]$}]{}{<a := [], s_\perp> \rightarrow s_{[]}}
 \end{mathpar}
 
 \subsection{List comprehension with list literal}
