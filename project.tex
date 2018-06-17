@@ -361,6 +361,21 @@ $s_{x, y}$ means that l has value $x$, and y has value $y$.
         }
         {<\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
 \end{mathpar}
+
+Because
+
+$\begin{aligned}
+    & \fancybr{\CC}{[\text{x + 1 for x in 1:2:[]}]} s_{1:2:[], \perp}\\
+    =\ & \fancybr{\CC}{[\text{x + 1 for x in 1:2:[] if true}]} s_{1:2:[], \perp}\\
+    =\ & \fancybr{\AA}{x + 1} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_{1:2:[], \perp}
+    & \text{because } \fancybr{\BB}{true} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{1}] = \mathbf{tt}\\
+    =\ & 2 : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_{1:2:[], \perp}\\
+    =\ & 2 : \fancybr{\AA}{x + 1} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_{1:2:[], \perp}
+    & \text{because } \fancybr{\BB}{true} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{2}] = \mathbf{tt}\\
+    =\ & 2 : 3 : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_{1:2:[], \perp}\\
+    =\ & 2 : 3 : []
+\end{aligned}$
+
 \end{landscape}
 
 \printbibliography
