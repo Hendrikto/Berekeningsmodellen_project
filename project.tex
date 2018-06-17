@@ -208,9 +208,9 @@ $\begin{aligned}
     \fancybr{\CC}{[\text{a for x in [] if b}]} s &= []\\
     \fancybr{\CC}{[\text{a for x in h:t if b}]} s &= \begin{cases}
         \fancybr{\AA}{a} s[x \mapsto h] : \fancybr{\CC}{[\text{a for x in t if b}]} s
-        & \text{if } \fancybr{\BB}{b} s[x \mapsto h] = \mathbf{tt}\\
+        & \text{if } \fancybr{\BB}{b} s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}\\
         \fancybr{\CC}{[\text{a for x in t if b}]} s
-        & \text{if } \fancybr{\BB}{b} s[x \mapsto h] = \mathbf{ff}\\
+        & \text{if } \fancybr{\BB}{b} s[x \mapsto \fancybr{\NN}{h}] = \mathbf{ff}\\
     \end{cases}\\
 \end{aligned}$
 
