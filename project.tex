@@ -244,18 +244,9 @@ $\begin{aligned}
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
         {}
         {<\text{while b so S}, s> \rightarrow s}\\
-    \inferrule*[left={$[\text{lcomp}^{start}]$}]
-        {\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
-        {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{mid}]$}]
-        {head: \fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
-        {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{end}]$}]
-        {}
-        {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{var}]$}]
-        {ENV \vdash <\text{[a for x in } \Lstate(y)], s> \rightarrow ENV \vdash s}
-        {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}\\
+    \inferrule*[left={$[\text{lcomp}_{var}]$}]
+        {<\text{[a for x in } \Lstate(y)], s> \rightarrow s}
+        {<\text{[a for x in y]}, s> \rightarrow s}\\
 \end{mathpar}
 
 In the rules above $ENV \in \Llit$.
