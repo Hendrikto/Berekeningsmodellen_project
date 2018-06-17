@@ -256,15 +256,6 @@ $\begin{aligned}
     \inferrule*[left={$[\text{lcomp}^{var}]$}]
         {ENV \vdash <\text{[a for x in } \Lstate(y)], s> \rightarrow ENV \vdash s}
         {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{tt\_start}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}$}]
-        {\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t if b]}, s> \rightarrow ENV \vdash s}
-        {[] \vdash <\text{[a for x in h:t if b]},s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{tt\_mid}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}$}]
-        {head:\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t if b]}, s> \rightarrow ENV \vdash s}
-        {head:[]  \vdash <\text{[a for x in h:t if b]},s> \rightarrow ENV \vdash s}\\
-    \inferrule*[left={$[\text{lcomp}^{ff}]$}, right={if $\fancybr{\BB}{b}s[x \mapsto \fancybr{\NN}{h}] = \mathbf{ff}$}]
-        {ENV \vdash <\text{[a for x in t:[] if b]}, s> \rightarrow ENV' \vdash s'}
-        {ENV \vdash <\text{[a for x in h:t:[] if b]},s> \rightarrow ENV' \vdash s'}\\
 \end{mathpar}
 
 In the rules above $ENV \in \Llit$.
@@ -348,11 +339,15 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
 Because
 
 $\begin{aligned}
-    \fancybr{\CC}{[\text{x + 1 for x in 1:2:[]}]} s_\perp
-    &= \fancybr{\CC}{[\text{x + 1 for x in 1:2:[] if true}]} s_\perp\\
-    &= 2 : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_\perp\\
-    &= 2 : 3 : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_\perp\\
-    &= 2 : 3 : []\\
+    &\fancybr{\CC}{[\text{x + 1 for x in 1:2:[]}]} s_\perp\\
+    =\ & \fancybr{\CC}{[\text{x + 1 for x in 1:2:[] if true}]} s_\perp\\
+    =\ & \fancybr{\AA}{x + 1} s_\perp[x \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_\perp
+    & \text{because } \fancybr{\BB}{true} s[x \mapsto 1] = \mathbf{tt}\\
+    =\ & 2 : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_\perp\\
+    =\ & 2 : \fancybr{\AA}{x + 1} s_\perp[x \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_\perp
+    & \text{because } \fancybr{\BB}{true} s[x \mapsto 2] = \mathbf{tt}\\
+    =\ & 2 : 3 : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_\perp\\
+    =\ & 2 : 3 : []\\
 \end{aligned}$
 
 \subsection{List comprehension with list variable}
