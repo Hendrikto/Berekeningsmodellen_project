@@ -97,10 +97,10 @@ Our goal is to eventually show the execution of the following While program:
 
 \begin{lstlisting}
     x := 1:2:3:[];
-    y := [a * 2 for a in x]
+    y := [a * 2 for a in x if a * 2 < 5]
 \end{lstlisting}
 
-Such that given the state $s_{\perp, \perp}$, executing the program will result in the state $s_{1:2:3:[], 2:4:6:[]}$.
+Such that given the state $s_{\perp, \perp}$, executing the program will result in the state $s_{1:2:3:[], 2:4:[]}$.
 
 \section{First Principles}
 
