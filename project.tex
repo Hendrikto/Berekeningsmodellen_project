@@ -385,6 +385,7 @@ We have shown that the syntax and semantics we defined can be used to show the e
 \begin{itemize}
     \item S1 $\equiv$ x := 1:2:3:[]
     \item S2 $\equiv$ y := [a * 2 for a in x if b]
+    \item S2' $\equiv$ y := [a * 2 for a in 1:2:3:[] if b]
     \item b $\equiv$ a * 2 $<$ 5
 \end{itemize}
 
@@ -396,7 +397,10 @@ $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and r
             {}
             {<\text{S1}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], \perp}}
         \inferrule*[right={$[\text{lcomp}_{var}]$}]
-            {}
+            {\inferrule*[right={$[\text{ass}_{lc}]$}]
+                {}
+                {<\text{S2'}, s_{1:2:3:[], \perp}> \perp> \rightarrow s_{1:2:3:[], 2:4:[]}}
+            }
             {<\text{S2}, s_{1:2:3:[], \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
         }
         {<\text{S1; S2}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
