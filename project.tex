@@ -220,8 +220,8 @@ We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley}
 This looks like the following:
 \begin{mathpar}
     \inferrule*[right={if \dots}]
-        {<S1, s> \rightarrow s1', \dots, <Sn, sn> \rightarrow s'}
-        {<S, s> \rightarrow s'}\\
+        {<S1, s_0> \rightarrow s_1, \dots, <Sn, s_{n-1}> \rightarrow s_n}
+        {<S, s_0> \rightarrow s_n}\\
 \end{mathpar}
 
 \begin{mathpar}
@@ -275,62 +275,6 @@ After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assig
         {<\text{y1 := [a for x in } \Lstate(\text{y2})], s> \rightarrow s}
         {<\text{y1 := [a for x in y2]}, s> \rightarrow s}\\
 \end{mathpar}
-
-\subsubsection{Differences}
-
-The assignment rule was split into arithmetic assignment, as defined by Nielson and Nielson \cite{wiley}, and list assignment.
-
-Additionally, we added rules to perform list comprehensions in While.
-During the list comprehension, we use an ENV, where we build a list corresponding to the rule.
-At the end, when the editing is done, the list will be copied from the ENV and used further on.
-We use three different rules for this, as we have three different cases (start, mid and end).
-The $[lcomp^{start}]$ rule looks as follows:
-
-\begin{mathpar}
-    \inferrule*[left={$[\text{lcomp}^{start}]$}]
-        {\fancybr{\AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
-        {[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}\end{mathpar}
-
-Before we apply this rule, our ENV initially contains an empty list.
-For this we use the $\Aexp$ a on the first element (the head or h) in the list we want to edit and add the outcome ($\fancybr{AA}{a}s[x \mapsto h]$) to our ENV list as the first element.
-We then need to remove the head element of our h:t list, as we now already considered this element.
-
-After this first step, we need to use the $[lcomp^{mid}]$ rule as long as the h:t list still contains any elements:
-\begin{mathpar}
-    \inferrule*[left={$[\text{lcomp}^{mid}]$}]
-        {head:\fancybr{AA}{a}s[x \mapsto h]:[] \vdash <\text{[a for x in t]}, s> \rightarrow ENV \vdash s}
-        {head:[] \vdash <\text{[a for x in h:t]}, s> \rightarrow ENV \vdash s}
-\end{mathpar}
-
-This rule almost works the same as the first rule, but now we already have a non-empty list in our ENV on the left side.
-When applying this rule, we again take the head element from the h:t list and apply the $\Aexp$ a on it.
-We then receive an outcome of the form $\fancybr{AA}{a}s[x \mapsto h]$, which we add as the new element at the end of the ENV list.
-Also we need to delete this h element from our initial list h:t.
-We use this rule as long as h:t matches, meaning that the list is not empty.
-
-When the list matches \mono{[]}, which means it is empty, we have to use our last rule $[lcomp^{end}]$, which looks as follows:
-
-\begin{mathpar}
-    \inferrule*[left={$[\text{lcomp}^{end}]$}]
-        {}
-        {ENV \vdash <\text{[a for x in []]}, s> \rightarrow ENV \vdash s}
-\end{mathpar}
-
-This rule finalizes the building of the new list in ENV and "saves" it in the ENV on the right side, which is then used further on in the whole computation.
-
-These rules only apply if we have a "base list" in a list literal format (e.g. 1:2:[]).
-If we have a rule containing \mono{a for x in y}, where \mono{y} is a list variable, we cannot apply the three rules explained above.
-To solve this, we added another rule to translate the list variable \mono{y} back to the list literal format.
-This rule is the following:
-
-\begin{mathpar}
-    \inferrule*[left={$[\text{lcomp}^{var}]$}]
-        {ENV \vdash <\text{[a for x in } \Lstate(\text{y})], s> \rightarrow ENV \vdash s}
-        {ENV \vdash <\text{[a for x in y]}, s> \rightarrow ENV \vdash s}
-\end{mathpar}
-
-This rule applies if we have a list variable in our base list in the list comprehension.
-It will prepare the rule such that we can apply our other rules for the list comprehensions, which all demand a list literal.
 
 \section{Application}
 
