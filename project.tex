@@ -282,7 +282,7 @@ We deleted the "natural semantics" ($_{ns}$) part of each rule's name, as all of
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_{ll}]$}]
         {}
-        {<\text{y := ll}, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
+        {<y \mono{ := } ll, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
 \end{mathpar}
 
 This rule allows assignments of list literals \metavar{ll} to a list variable y $\in \Lvar$.
@@ -290,8 +290,8 @@ After the execution of this assignment in state s, y is equal to $\fancybr{\LL}{
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_{lc}]$}]
-        {<\text{y := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
-        {<\text{y := lc}, s> \rightarrow s'}\\
+        {<y \mono{ := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
+        {<y \mono{ := } lc, s> \rightarrow s'}\\
 \end{mathpar}
 
 This rule makes it possible to assign a list comprehension to a variable.
@@ -300,8 +300,8 @@ After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assig
 
 \begin{mathpar}
     \inferrule*[left={$[\text{lcomp}_{var}]$}]
-        {<\text{y := } \fancybr{R}{lc}, s> \rightarrow s}
-        {<\text{y := lc}, s> \rightarrow s}\\
+        {<y \mono{ := } \fancybr{R}{lc}, s> \rightarrow s}
+        {<y \mono{ := } lc, s> \rightarrow s}\\
 \end{mathpar}
 
 We use this rule to replace the list variable inside the list comprehension with an actual list literal, which can then be used by the $\CC$ function to compute the resulting list literal from the list comprehension.
