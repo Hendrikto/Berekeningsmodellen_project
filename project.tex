@@ -392,7 +392,13 @@ $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and r
 
 \begin{mathpar}
     \inferrule*[right={$[\text{comp}]$}]
-        {}
+        {\inferrule*[right={$[\text{ass}_{ll}]$}]
+            {}
+            {<\text{S1}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], \perp}}
+        \inferrule*[right={$[\text{lcomp}_{var}]$}]
+            {}
+            {<\text{S2}, s_{1:2:3:[], \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
+        }
         {<\text{S1; S2}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
 \end{mathpar}
 
