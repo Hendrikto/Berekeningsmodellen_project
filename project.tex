@@ -206,10 +206,10 @@ $\CC: \Lcomp \rightarrow \State \rightarrow \Llit$
 $\begin{aligned}
     \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } ll \mono{]}} s &= \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } ll \mono{ if true]}} s\\
     \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in [] if } b \mono{]}} s &= \mono{[]}\\
-    \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } h \mono{:} t \mono{ if  }b \mono{]}} s &= \begin{cases}
+    \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } h \mono{:} t \mono{ if } b \mono{]}} s &= \begin{cases}
         \fancybr{\AA}{a} s[x \mapsto h] \mono{:} \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } t \mono{ if } b\mono{]}} s
         & \text{if } \fancybr{\BB}{b} s[x \mapsto \fancybr{\NN}{h}] = \mathbf{tt}\\
-        \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } t \mono{ if  } b \mono{]}} s
+        \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } t \mono{ if } b \mono{]}} s
         & \text{if } \fancybr{\BB}{b} s[x \mapsto \fancybr{\NN}{h}] = \mathbf{ff}\\
     \end{cases}\\
 \end{aligned}$
