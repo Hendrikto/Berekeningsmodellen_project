@@ -367,14 +367,14 @@ $\begin{aligned}
 We have shown that the syntax and semantics we defined can be used to show the execution of simple programs. Now we can assemble the parts and tackle the case study from the introduction.
 
 \begin{itemize}
-    \item S1 $\equiv$ x := 1:2:3:[]
-    \item S2 $\equiv$ y := [a * 2 for a in x if b]
-    \item S2' $\equiv$ y := [a * 2 for a in 1:2:3:[] if b]
-    \item b $\equiv$ a * 2 $<$ 5
+    \item $S1 \equiv \mono{x := 1:2:3:[]}$
+    \item $S2 \equiv \mono{y := [a * 2 for a in x if } b \mono{]}$
+    \item $S2' \equiv \mono{y := [a * 2 for a in 1:2:3:[] if } b \mono{]}$
+    \item $b \equiv \mono{a * 2 < 5}$
     \item $\begin{aligned}
         s_0(\text{x}) &= \perp & s_0(\text{y}) &= \perp\\
-        s_1(\text{x}) &= \text{1:2:3:[]} & s_1(\text{y}) &= \perp\\
-        s_2(\text{x}) &= \text{1:2:3:[]} & s_2(\text{y}) &= \text{2:4:[]}\\
+        s_1(\text{x}) &= \mono{1:2:3:[]} & s_1(\text{y}) &= \perp\\
+        s_2(\text{x}) &= \mono{1:2:3:[]} & s_2(\text{y}) &= \mono{2:4:[]}\\
     \end{aligned}$
 \end{itemize}
 
@@ -384,32 +384,32 @@ $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and r
     \inferrule*[right={$[\text{comp}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {<\text{S1}, s_0> \rightarrow s_1}
+            {<S1, s_0> \rightarrow s_1}
         \inferrule*[right={$[\text{lcomp}_{var}]$}]
             {\inferrule*[right={$[\text{ass}_{lc}]$}]
                 {\inferrule*[right={$[\text{ass}_{ll}]$}]
                     {}
-                    {<\text{y := 2:4:[]}, s_1> \rightarrow s_2}
+                    {<\mono{y := 2:4:[]}, s_1> \rightarrow s_2}
                 }
-                {<\text{S2'}, s_1> \rightarrow s_2}
+                {<S2', s_1> \rightarrow s_2}
             }
-            {<\text{S2}, s_1> \rightarrow s_2}
+            {<S2, s_1> \rightarrow s_2}
         }
-        {<\text{S1; S2}, s_0> \rightarrow s_2}
+        {<S1 \mono{;} S2, s_0> \rightarrow s_2}
 \end{mathpar}
 
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\mono{[a * 2 for a in 1:2:3:[] if b]}} s_1\\
-    =\ & \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if b]}} s_1
-    & \text{because } \fancybr{\BB}{\mono{b}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
-    =\ & \mono{2:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if b]}} s_1\\
-    =\ & \mono{2:} \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{2}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 3:[] if b]}} s_1
-    & \text{because } \fancybr{\BB}{\mono{b}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
-    =\ & \mono{2:4:} \fancybr{\CC}{\mono{[a * 2 for a in 3:[] if b]}} s_1\\
-    =\ & \mono{2:4:} \fancybr{\CC}{\mono{[a * 2 for a in [] if b]}} s_1
-    & \text{because } \fancybr{\BB}{\mono{b}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{3}}] = \mathbf{ff}\\
+    & \fancybr{\CC}{\mono{[a * 2 for a in 1:2:3:[] if } b \mono{]}} s_1\\
+    =\ & \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if } b \mono{]}} s_1
+    & \text{because } \fancybr{\BB}{b} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
+    =\ & \mono{2:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if } b \mono{]}} s_1\\
+    =\ & \mono{2:} \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{2}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 3:[] if } b \mono{]}} s_1
+    & \text{because } \fancybr{\BB}{b} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
+    =\ & \mono{2:4:} \fancybr{\CC}{\mono{[a * 2 for a in 3:[] if } b \mono{]}} s_1\\
+    =\ & \mono{2:4:} \fancybr{\CC}{\mono{[a * 2 for a in [] if } b \mono{]}} s_1
+    & \text{because } \fancybr{\BB}{b} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{3}}] = \mathbf{ff}\\
     =\ & \mono{2:4:[]}\\
 \end{aligned}$
 
