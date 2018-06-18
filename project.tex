@@ -222,28 +222,28 @@ We cannot solve the following program with our current rules:
     y := [x for x in l]
 \end{lstlisting}
 
-To fix this, we add the function $R$ which replaces the list variables $\in \Lvar$ in a list comprehension back into list literals \metavar{ll}, such that they can be evaluated by the $\CC$ function.
-This $R$ function works like as follows:
+To fix this, we add the function $R$ which replaces the list variables \metavar{y} in a list comprehension \metavar{lc} back into list literals \metavar{ll}, such that they can be evaluated by the $\CC$ function.
+This $R$ function works as follows:
 
 $R: \Lcomp \text{(with Lvar)} \rightarrow \Lcomp \text{(without Lvar)}$
 
 $\begin{aligned}
-    \fancybr{R}{[\text{a for x in y}]} &= \fancybr{R}{[\text{a for x in y if true}]}\\
-    \fancybr{R}{[\text{a for x in y if b}]} &= \fancybr{R}{[\text{a for x in } \Lstate(y) \text{ if b}]}\\
+    \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } y\mono{]}} &= \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } y \mono{ if true]}}\\
+    \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } y \mono{ if } b \mono{]}} &= \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } \Lstate(y) \mono{ if } b\mono{]}}\\
 \end{aligned}$
 
 \subsubsection{Semantics}
 
 We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantic rules.
-This basic rule looks like the following:
+The basic rule looks as follow:
 \begin{mathpar}
     \inferrule*[right={if \dots}]
         {<S1, s_0> \rightarrow s_1, \dots, <Sn, s_{n-1}> \rightarrow s_n}
         {<S, s_0> \rightarrow s_n}\\
 \end{mathpar}
 
-In addition to that, we also have a basic form for the transitions (e.g. for [SKIP] or [$ASS_a$]).
-This basic transition is of the following form:
+In addition to that, we also have a basic form for the transitions (e.g. for $[\text{SKIP}]$ or $[\text{ASS}_a]$).
+The basic transition is of the following form:
 \begin{mathpar}
     \inferrule*[]
         {}
@@ -277,7 +277,7 @@ These basic rules allow the following semantic rules for our While language:
 \end{mathpar}
 
 We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
-We deleted the "natural semantics" part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ass}]$ to $[\text{ass}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
+We deleted the "natural semantics" ($_{ns}$) part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ASS}]$ to $[\text{ASS}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_{ll}]$}]
@@ -286,7 +286,7 @@ We deleted the "natural semantics" part of each rule's name, as all of our rules
 \end{mathpar}
 
 This rule allows assignments of list literals \metavar{ll} to a list variable y $\in \Lvar$.
-After the execution of this assignment in state s, y is equal to $\fancybr{\LL}{ll}$ in state s.
+After the execution of this assignment in state s, y is equal to $\fancybr{\LL}{ll}$.
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_{lc}]$}]
