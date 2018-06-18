@@ -250,7 +250,7 @@ The basic transition is of the following form:
         {<S, s> \rightarrow s'}\\
 \end{mathpar}
 
-These basic rules allow the following semantic rules for our While language:
+These basic rules allow the following semantic rules for our extended While language:
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
@@ -371,10 +371,10 @@ Because
 $\begin{aligned}
     & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[]]}} s_{1:2:[], \perp}\\
     =\ & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[] if true]}} s_{1:2:[], \perp}\\
-    =\ & \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] : \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}
+    =\ & \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}
     & \text{because } \fancybr{\BB}{\mono{true}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
     =\ & \mono{2:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}\\
-    =\ & \mono{2:} \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] : \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}
+    =\ & \mono{2:} \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}
     & \text{because } \fancybr{\BB}{\mono{true}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
     =\ & \mono{2:3:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}\\
     =\ & \mono{2:3:[]}\\
@@ -384,7 +384,7 @@ $\begin{aligned}
 
 \subsection{Case study}
 
-We have shown that the syntax and semantics we defined can be used to show the execution of simple programs. Now we can assemble the parts and tackle the case study from the introduction.
+We have shown that the syntax and semantics we defined can be used to show the execution of simple programs. Now we can assemble the parts and tackle the case study of the program from the introduction.
 
 \begin{itemize}
     \item $S1 \equiv \mono{x := 1:2:3:[]}$
