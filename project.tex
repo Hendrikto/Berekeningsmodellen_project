@@ -256,6 +256,13 @@ After the execution of this assignment in state s, y is equal to $\fancybr{\LL}{
     \inferrule*[left={$[\text{ass}_{lc}]$}]
         {<\text{y := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
         {<\text{y := lc}, s> \rightarrow s'}\\
+\end{mathpar}
+
+This rule makes it possible to assign a list comprehension to a variable.
+To execute this rule, the $\CC$ function is used, which "translates" the list comprehension to a list literal.
+After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assign the list literal to the variable y.
+
+\begin{mathpar}
     \inferrule*[left={$[\text{lcomp}_{var}]$}]
         {<\text{y1 := [a for x in } \Lstate(\text{y2})], s> \rightarrow s}
         {<\text{y1 := [a for x in y2]}, s> \rightarrow s}\\
@@ -399,6 +406,11 @@ We have shown that the syntax and semantics we defined can be used to show the e
     \item S2 $\equiv$ y := [a * 2 for a in x if b]
     \item S2' $\equiv$ y := [a * 2 for a in 1:2:3:[] if b]
     \item b $\equiv$ a * 2 $<$ 5
+    \item $\begin{aligned}
+        s_0(\text{x}) &= \perp & s_0(\text{y}) &= \perp\\
+        s_1(\text{x}) &= \text{1:2:3:[]} & s_1(\text{y}) &= \perp\\
+        s_2(\text{x}) &= \text{1:2:3:[]} & s_2(\text{y}) &= \text{2:4:[]}\\
+    \end{aligned}$
 \end{itemize}
 
 $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and right hand side are syntactically equivalent. We just give names to program snippets to make things clearer.
@@ -407,29 +419,29 @@ $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and r
     \inferrule*[right={$[\text{comp}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {<\text{S1}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], \perp}}
+            {<\text{S1}, s_0> \rightarrow s_1}
         \inferrule*[right={$[\text{lcomp}_{var}]$}]
             {\inferrule*[right={$[\text{ass}_{lc}]$}]
                 {\inferrule*[right={$[\text{ass}_{ll}]$}]
                     {}
-                    {<\text{y := 2:4:[]}, s_{1:2:3:[], \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
+                    {<\text{y := 2:4:[]}, s_1> \rightarrow s_2}
                 }
-                {<\text{S2'}, s_{1:2:3:[], \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
+                {<\text{S2'}, s_1> \rightarrow s_2}
             }
-            {<\text{S2}, s_{1:2:3:[], \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
+            {<\text{S2}, s_1> \rightarrow s_2}
         }
-        {<\text{S1; S2}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
+        {<\text{S1; S2}, s_0> \rightarrow s_2}
 \end{mathpar}
 
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\text{[a * 2 for a in 1:2:3:[] if b]}} s_{1:2:3:[], \perp}\\
-    =\ & \fancybr{\AA}{\text{a * 2}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_{1:2:3:[], \perp}
-    & \text{because } \fancybr{\BB}{\text{b}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{1}] = \mathbf{tt}\\
-    =\ & 2 : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_{1:2:3:[], \perp}\\
-    =\ & 2 : \fancybr{\AA}{\text{a * 2}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{\text{[a * 2 for a in 3:[] if b]}} s_{1:2:3:[], \perp}
-    & \text{because } \fancybr{\BB}{\text{b}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{2}] = \mathbf{tt}\\
+    & \fancybr{\CC}{\text{[a * 2 for a in 1:2:3:[] if b]}} s_1\\
+    =\ & \fancybr{\AA}{\text{a * 2}} s_1[a \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_1
+    & \text{because } \fancybr{\BB}{\text{b}} s_1[a \mapsto \fancybr{\NN}{1}] = \mathbf{tt}\\
+    =\ & 2 : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_1\\
+    =\ & 2 : \fancybr{\AA}{\text{a * 2}} s_1[a \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{\text{[a * 2 for a in 3:[] if b]}} s_1
+    & \text{because } \fancybr{\BB}{\text{b}} s_1[a \mapsto \fancybr{\NN}{2}] = \mathbf{tt}\\
 \end{aligned}$
 
 \printbibliography
