@@ -348,18 +348,18 @@ $s_{x, y}$ means that l has value $x$, and y has value $y$.
     \inferrule*[right={$[\text{comp}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {<\text{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], \perp}}
+            {<\mono{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], \perp}}
         \inferrule*[right={$[\text{lcomp}_{var}]$}]
             {\inferrule*[right={$[\text{ass}_{lc}]$}]
-                {\inferrule*[right={$[\text{ass}_{ll}$}]
+                {\inferrule*[right={$[\text{ass}_{ll}]$}]
                     {}
-                    {<\text{y := 2:3:[]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+                    {<\mono{y := 2:3:[]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
                 }
-                {<\text{y := [x + 1 for x in 1:2:[]]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+                {<\mono{y := [x + 1 for x in 1:2:[]]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
             }
-            {<\text{y := [x + 1 for x in l]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+            {<\mono{y := [x + 1 for x in l]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
         }
-        {<\text{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+        {<\mono{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
 \end{mathpar}
 
 Because
