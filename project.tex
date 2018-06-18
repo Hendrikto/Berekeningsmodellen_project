@@ -87,7 +87,7 @@ It defines the Cartesian product in terms of list comprehensions. We want to be 
 We want to use Natural Semantics (NS) to describe list comprehensions in While, because as opposed to Structural Operational Semantics (SOS) it offers a higher level overview over the semantics. SOS is concerned with the individual steps of a computation, while NS describes the overall results \cite{wiley}. The high level overview is a better fit to describe list comprehensions. Python is a great example of that. Python 2 and Python 3 both offer list comprehensions with the same semantics, but with a different implementation behind the scenes. This is not really relevant to the semantics though:
 
 \begin{lstlisting}[title=Python 2/3]
-    >>> [x*2 for x in [1, 2, 3]]
+    >>> [x * 2 for x in [1, 2, 3]]
     [2, 4, 6]
 \end{lstlisting}
 
@@ -163,13 +163,13 @@ In addition to the variables that are used by Nielson and Nielson \cite{wiley}, 
     y := 1:2:[z * 2 for z in x]
 \end{lstlisting}
 
-on a semantical level, so we don't have to deal with them "at run time". This is also convenient for the programmer, as a potential While compiler/interpreter could catch these errors early, instead of bailing out when trying to run the program.
+on a semantic level, so we don't have to deal with them "at run time". This is also convenient for the programmer, as a potential While compiler/interpreter could catch these errors early, instead of bailing out when trying to run the program.
 
 \mono{x} is an arithmetic variable, which is not allowed to the position it does in the above code. This position needs to be filled by either a list \metavar{l} or a list variable \metavar{y}.
 
 Additionally the definition of list variable \mono{y} begins with a list literal \metavar{ll}, and then continues with a list comprehension \metavar{lc}. The syntax we chose forbids this, as you have to choose between both versions when defining a list \metavar{l}.
 
-\subsection{Semantic extensions} % I don't know why "semantical" is marked as a typo, I googled it to be sure, it's correct.
+\subsection{Semantic extensions}
 
 \subsubsection{Semantic Functions}
 
@@ -232,7 +232,7 @@ $\begin{aligned}
 
 \subsubsection{Semantics}
 
-We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantical rules.
+We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantic rules.
 This basic rule looks like the following:
 \begin{mathpar}
     \inferrule*[right={if \dots}]
@@ -248,7 +248,7 @@ This basic transition is of the following form:
         {<S, s> \rightarrow s'}\\
 \end{mathpar}
 
-These basic rules allow the following semantical rules for our While language:
+These basic rules allow the following semantic rules for our While language:
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
@@ -433,7 +433,7 @@ $\begin{aligned}
 
 \section{Conclusion}
 
-We have successfully demonstrated the viability of our semantical and syntactical extensions to the While language. They allow us to execute arbitrary While programs containing simple list comprehensions. We exemplified this by a case study on the program from the introduction. The derivation uses all semantical rules we introduced and successfully terminates in the expected state.
+We have successfully demonstrated the viability of our semantic and syntactical extensions to the While language. They allow us to execute arbitrary While programs containing simple list comprehensions. We exemplified this by a case study on the program from the introduction. The derivation uses all semantic rules we introduced and successfully terminates in the expected state.
 
 \printbibliography
 
