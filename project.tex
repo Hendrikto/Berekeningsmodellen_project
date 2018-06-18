@@ -220,12 +220,6 @@ $\begin{aligned}
     \inferrule*[left={$[\text{ass}_a]$}]
         {}
         {<\text{x := a}, s> \rightarrow s[x \mapsto \fancybr{\AA}{a}s]}\\
-    \inferrule*[left={$[\text{ass}_{ll}]$}]
-        {}
-        {<\text{y := ll}, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
-    \inferrule*[left={$[\text{ass}_{lc}]$}]
-        {<\text{y := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
-        {<\text{y := lc}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
         {<\text{skip}, s> \rightarrow s}\\
@@ -244,6 +238,24 @@ $\begin{aligned}
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
         {}
         {<\text{while b so S}, s> \rightarrow s}\\
+\end{mathpar}
+
+We reused the above mentioned rules from Nielsen \& Nielsen \cite[Table 2.1]{wiley}.
+We deleted the "natural semantics" part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ass}]$ to $[\text{ass}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
+
+\begin{mathpar}
+    \inferrule*[left={$[\text{ass}_{ll}]$}]
+        {}
+        {<\text{y := ll}, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
+\end{mathpar}
+
+This rule allows assignments of list literals \metavar{ll} to a list variable y $\in \Lvar$.
+After the execution of this assignment in state s, y is equal to $\fancybr{\LL}{ll}$ in state s.
+
+\begin{mathpar}
+    \inferrule*[left={$[\text{ass}_{lc}]$}]
+        {<\text{y := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
+        {<\text{y := lc}, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{lcomp}_{var}]$}]
         {<\text{y1 := [a for x in } \Lstate(\text{y2})], s> \rightarrow s}
         {<\text{y1 := [a for x in y2]}, s> \rightarrow s}\\
@@ -412,9 +424,12 @@ $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and r
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\text{S2'}} s_{1:2:3:[], \perp}\\
-    =\ & \fancybr{\AA}{\text{a * 2}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{\text{y := [a * 2 for a in 2:3:[] if b]}} s_{1:2:3:[], \perp}
+    & \fancybr{\CC}{\text{[a * 2 for a in 1:2:3:[] if b]}} s_{1:2:3:[], \perp}\\
+    =\ & \fancybr{\AA}{\text{a * 2}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_{1:2:3:[], \perp}
     & \text{because } \fancybr{\BB}{\text{b}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{1}] = \mathbf{tt}\\
+    =\ & 2 : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_{1:2:3:[], \perp}\\
+    =\ & 2 : \fancybr{\AA}{\text{a * 2}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{\text{[a * 2 for a in 3:[] if b]}} s_{1:2:3:[], \perp}
+    & \text{because } \fancybr{\BB}{\text{b}} s_{1:2:3:[], \perp}[a \mapsto \fancybr{\NN}{2}] = \mathbf{tt}\\
 \end{aligned}$
 
 \printbibliography
