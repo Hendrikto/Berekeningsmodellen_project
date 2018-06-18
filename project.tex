@@ -238,7 +238,7 @@ We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley}
 The basic rule looks as follow:
 \begin{mathpar}
     \inferrule*[right={if \dots}]
-        {<S1, s_0> \rightarrow s_1, \dots, <Sn, s_{n-1}> \rightarrow s_n}
+        {<S_1, s_0> \rightarrow s_1, \dots, <S_n, s_{n-1}> \rightarrow s_n}
         {<S, s_0> \rightarrow s_n}\\
 \end{mathpar}
 
@@ -255,25 +255,25 @@ These basic rules allow the following semantic rules for our extended While lang
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
         {}
-        {<\text{x := a}, s> \rightarrow s[x \mapsto \fancybr{\AA}{a}s]}\\
+        {<x \mono{ := } a, s> \rightarrow s[x \mapsto \fancybr{\AA}{a}s]}\\
     \inferrule*[left={$[\text{skip}]$}]
         {}
-        {<\text{skip}, s> \rightarrow s}\\
+        {<\mono{skip}, s> \rightarrow s}\\
     \inferrule*[left={$[\text{comp}]$}]
-        {<S1, s> \rightarrow s', <S2, s'> \rightarrow s''}
-        {<S1; S2, s> \rightarrow s''} \\
+        {<S_1, s> \rightarrow s', <S_2, s'> \rightarrow s''}
+        {<S_1 \mono{; } S_2, s> \rightarrow s''} \\
     \inferrule*[left={$[\text{if}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
-        {<S1, s> \rightarrow s'}
-        {<\text{if b then S1 else S2}, s> \rightarrow s'}\\
+        {<S_1, s> \rightarrow s'}
+        {<\mono{if } b \mono{ then } S_1 \mono{ else } S_2, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{if}^{ff}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
-        {<S2, s> \rightarrow s'}
-        {<\text{if b then S1 else S2}, s> \rightarrow s'}\\
+        {<S_2, s> \rightarrow s'}
+        {<\mono{if } b \mono{ then } S_1 \mono{ else } S_2, s> \rightarrow s'}\\
     \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
-        {<S, s> \rightarrow s', <\text{while b do S}, s'> \rightarrow s''}
-        {<\text{while b do S}, s> \rightarrow s''}\\
+        {<S, s> \rightarrow s', <\mono{while } b \mono{ do } S, s'> \rightarrow s''}
+        {<\mono{while } b \mono{ do } S, s> \rightarrow s''}\\
     \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
         {}
-        {<\text{while b so S}, s> \rightarrow s}\\
+        {<\mono{while } b \mono{ do } S, s> \rightarrow s}\\ % does this fit the general form? This is taken form the book...
 \end{mathpar}
 
 We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
