@@ -214,6 +214,22 @@ $\begin{aligned}
     \end{cases}\\
 \end{aligned}$
 
+In addition to that, we need an extra replace function R, which handles list variables inside our list comprehensions.
+We cannot solve the following program with our current rules:
+\begin{lstlisting}
+    y1 := [a for x in y2], where y2 is a list variable
+\end{lstlisting}
+
+To fix this, we add the function R which rewrites the list variables back into list literals, such that it can be evaluated by the $\CC$ function.
+This R function works like the following:
+
+$R: \Lcomp \text{(with Lvar)} \rightarrow \Lcomp \text{(without Lvar)}$
+
+$\begin{aligned}
+    \fancybr{R}{[\text{a for x in y}]}s &= \fancybr{R}{[\text{a for x in y if true}]} s\\
+    \fancybr{R}{[\text{a for x in y if b}]}s &= \fancybr{R}{[\text{a for x in } \Lstate(y) \text{ if b}]} s\\
+\end{aligned}$
+
 \subsubsection{Semantics}
 
 We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantical rules.
@@ -349,15 +365,15 @@ $s_{x, y}$ means that l has value $x$, and y has value $y$.
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{[\text{x + 1 for x in 1:2:[]}]} s_{1:2:[], \perp}\\
-    =\ & \fancybr{\CC}{[\text{x + 1 for x in 1:2:[] if true}]} s_{1:2:[], \perp}\\
-    =\ & \fancybr{\AA}{x + 1} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_{1:2:[], \perp}
-    & \text{because } \fancybr{\BB}{true} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{1}] = \mathbf{tt}\\
-    =\ & 2 : \fancybr{\CC}{[\text{x + 1 for x in 2:[] if true}]} s_{1:2:[], \perp}\\
-    =\ & 2 : \fancybr{\AA}{x + 1} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_{1:2:[], \perp}
-    & \text{because } \fancybr{\BB}{true} s_{1:2:[], \perp}[x \mapsto \fancybr{\NN}{2}] = \mathbf{tt}\\
-    =\ & 2 : 3 : \fancybr{\CC}{[\text{x + 1 for x in [] if true}]} s_{1:2:[], \perp}\\
-    =\ & 2 : 3 : []
+    & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[]]}} s_{1:2:[], \perp}\\
+    =\ & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[] if true]}} s_{1:2:[], \perp}\\
+    =\ & \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] : \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}
+    & \text{because } \fancybr{\BB}{\mono{true}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
+    =\ & \mono{2:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}\\
+    =\ & \mono{2:} \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] : \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}
+    & \text{because } \fancybr{\BB}{\mono{true}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
+    =\ & \mono{2:3:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}\\
+    =\ & \mono{2:3:[]}\\
 \end{aligned}$
 
 \end{landscape}
