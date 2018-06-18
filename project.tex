@@ -100,7 +100,7 @@ Our goal is to eventually show the execution of the following While program:
     y := [a * 2 for a in x if a * 2 < 5]
 \end{lstlisting}
 
-Such that given the state $s_{\perp, \perp}$, executing the program will result in the state $s_{1:2:3:[], 2:4:[]}$.
+The execution of this program should result in the state $s_{1:2:3:[], 2:4:[]}$, given the initial state $s_{\perp, \perp}$.
 
 \section{First Principles}
 
@@ -165,7 +165,7 @@ In addition to the variables that are used by Nielson and Nielson \cite{wiley}, 
 
 on a semantical level, so we don't have to deal with them "at run time". This is also convenient for the programmer, as a potential While compiler/interpreter could catch these errors early, instead of bailing out when trying to run the program.
 
-\mono{x} is an arithmetic variable, which is not allowed to the the position it does in the above code. This position needs to be filled by either a list \metavar{l} or a list variable \metavar{y}.
+\mono{x} is an arithmetic variable, which is not allowed to the position it does in the above code. This position needs to be filled by either a list \metavar{l} or a list variable \metavar{y}.
 
 Additionally the definition of list variable \mono{y} begins with a list literal \metavar{ll}, and then continues with a list comprehension \metavar{lc}. The syntax we chose forbids this, as you have to choose between both versions when defining a list \metavar{l}.
 
@@ -216,7 +216,7 @@ $\begin{aligned}
 
 \subsubsection{Semantics}
 
-We are using the same basic form as Nielsen \& Nielsen \cite[Section 2.1]{wiley} for our semantical rules.
+We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantical rules.
 This looks like the following:
 \begin{mathpar}
     \inferrule*[right={if \dots}]
@@ -248,7 +248,7 @@ This looks like the following:
         {<\text{while b so S}, s> \rightarrow s}\\
 \end{mathpar}
 
-We reused the above mentioned rules from Nielsen \& Nielsen \cite[Table 2.1]{wiley}.
+We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
 We deleted the "natural semantics" part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ass}]$ to $[\text{ass}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
 
 \begin{mathpar}
@@ -308,7 +308,7 @@ We then receive an outcome of the form $\fancybr{AA}{a}s[x \mapsto h]$, which we
 Also we need to delete this h element from our initial list h:t.
 We use this rule as long as h:t matches, meaning that the list is not empty.
 
-When the list matches \mono{[]}, which means it is empty, we have to use our last rule $[lcomp^{end}]$, which looks like the following:
+When the list matches \mono{[]}, which means it is empty, we have to use our last rule $[lcomp^{end}]$, which looks as follows:
 
 \begin{mathpar}
     \inferrule*[left={$[\text{lcomp}^{end}]$}]
@@ -455,6 +455,10 @@ $\begin{aligned}
     & \text{because } \fancybr{\BB}{\text{b}} s_1[a \mapsto \fancybr{\NN}{3}] = \mathbf{ff}\\
     =\ & 2 : 4 : []\\
 \end{aligned}$
+
+\subsection{Conclusion}
+
+We have successfully demonstrated the viability of our semantical and syntactical extensions to the While language. They allow us to execute arbitrary While programs containing simple list comprehensions. We exemplified this by a case study on the program from the introduction. The derivation uses all semantical rules we introduced and successfully terminates in the expected state.
 
 \printbibliography
 
