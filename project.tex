@@ -308,10 +308,12 @@ The R function takes a list comprehension with an $\Lvar$ as input and returns a
 \section{Application}
 
 \subsection{List literal}
-$s_x$ means that variable $a$ has the value $x$ in state $s$.
+$s_x$ means that variable \mono{a} has the value $x$ in state $s$.
 
 \begin{mathpar}
-    \inferrule*[right={$[\text{ass}_{ll}]$}]{}{<a := [], s_\perp> \rightarrow s_{[]}}
+    \inferrule*[right={$[\text{ass}_{ll}]$}]
+        {}
+        {<\mono{a := []}, s_\perp> \rightarrow s_{[]}}
 \end{mathpar}
 
 \subsection{List comprehension with list literal}
@@ -320,9 +322,9 @@ $s_x$ means that variable $a$ has the value $x$ in state $s$.
     \inferrule*[right={$[\text{ass}_{lc}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {<\text{y := 2:3:[]}, s_\perp> \rightarrow s_{2:3:[]}}
+            {<\mono{y := 2:3:[]}, s_\perp> \rightarrow s_{2:3:[]}}
         }
-        {<\text{y := [x + 1 for x in 1:2:[]]}, s_\perp> \rightarrow s_{2:3:[]}}
+        {<\mono{y := [x + 1 for x in 1:2:[]]}, s_\perp> \rightarrow s_{2:3:[]}}
 \end{mathpar}
 
 Because
@@ -341,7 +343,7 @@ $\begin{aligned}
 
 \subsection{List comprehension with list variable}
 
-$s_{x, y}$ means that l has value $x$, and y has value $y$.
+$s_{x, y}$ means that \mono{l} has value $x$, and \mono{y} has value $y$.
 
 \begin{landscape}
 \begin{mathpar}
