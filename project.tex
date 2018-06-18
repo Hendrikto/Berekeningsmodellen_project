@@ -217,12 +217,22 @@ $\begin{aligned}
 \subsubsection{Semantics}
 
 We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantical rules.
-This looks like the following:
+This basic rule looks like the following:
 \begin{mathpar}
     \inferrule*[right={if \dots}]
         {<S1, s_0> \rightarrow s_1, \dots, <Sn, s_{n-1}> \rightarrow s_n}
         {<S, s_0> \rightarrow s_n}\\
 \end{mathpar}
+
+In addition to that, we also have a basic form for the transitions (e.g. for [SKIP] or [$ASS_a$]).
+This basic transition is of the following form:
+\begin{mathpar}
+    \inferrule*[]
+        {}
+        {<S, s> \rightarrow s'}\\
+\end{mathpar}
+
+These basic rules allow the following semantical rules for our While language:
 
 \begin{mathpar}
     \inferrule*[left={$[\text{ass}_a]$}]
@@ -275,6 +285,9 @@ After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assig
         {<\text{y1 := [a for x in } \Lstate(\text{y2})], s> \rightarrow s}
         {<\text{y1 := [a for x in y2]}, s> \rightarrow s}\\
 \end{mathpar}
+
+We use this rule to replace the list variable y2 with an actual list literal, which then can be used by the $\CC$ function to compute the resulting list from the list comprehension.
+The $\Lstate$ function takes a list variable as input and returns a list literal.
 
 \section{Application}
 
@@ -388,16 +401,16 @@ $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and r
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\text{[a * 2 for a in 1:2:3:[] if b]}} s_1\\
-    =\ & \fancybr{\AA}{\text{a * 2}} s_1[a \mapsto \fancybr{\NN}{1}] : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_1
-    & \text{because } \fancybr{\BB}{\text{b}} s_1[a \mapsto \fancybr{\NN}{1}] = \mathbf{tt}\\
-    =\ & 2 : \fancybr{\CC}{\text{[a * 2 for a in 2:3:[] if b]}} s_1\\
-    =\ & 2 : \fancybr{\AA}{\text{a * 2}} s_1[a \mapsto \fancybr{\NN}{2}] : \fancybr{\CC}{\text{[a * 2 for a in 3:[] if b]}} s_1
-    & \text{because } \fancybr{\BB}{\text{b}} s_1[a \mapsto \fancybr{\NN}{2}] = \mathbf{tt}\\
-    =\ & 2 : 4 : \fancybr{\CC}{\text{[a * 2 for a in 3:[] if b]}} s_1\\
-    =\ & 2 : 4 : \fancybr{\CC}{\text{[a * 2 for a in [] if b]}} s_1
-    & \text{because } \fancybr{\BB}{\text{b}} s_1[a \mapsto \fancybr{\NN}{3}] = \mathbf{ff}\\
-    =\ & 2 : 4 : []\\
+    & \fancybr{\CC}{\mono{[a * 2 for a in 1:2:3:[] if b]}} s_1\\
+    =\ & \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if b]}} s_1
+    & \text{because } \fancybr{\BB}{\mono{b}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
+    =\ & \mono{2:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if b]}} s_1\\
+    =\ & \mono{2:} \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{2}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 3:[] if b]}} s_1
+    & \text{because } \fancybr{\BB}{\mono{b}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
+    =\ & \mono{2:4:} \fancybr{\CC}{\mono{[a * 2 for a in 3:[] if b]}} s_1\\
+    =\ & \mono{2:4:} \fancybr{\CC}{\mono{[a * 2 for a in [] if b]}} s_1
+    & \text{because } \fancybr{\BB}{\mono{b}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{3}}] = \mathbf{ff}\\
+    =\ & \mono{2:4:[]}\\
 \end{aligned}$
 
 \subsection{Conclusion}
