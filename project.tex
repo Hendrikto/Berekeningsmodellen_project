@@ -309,6 +309,8 @@ The R function takes a list comprehension with an $\Lvar$ as input and returns a
 
 \section{Application}
 
+$\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and right hand side are syntactically equivalent. We just give names to program snippets to make things clearer.
+
 \subsection{List literal}
 $s_x$ means that variable \mono{a} has the value $x$ in state $s$.
 
@@ -347,40 +349,48 @@ $\begin{aligned}
 
 $s_{x, y}$ means that \mono{l} has value $x$, and \mono{y} has value $y$.
 
-\begin{landscape}
+\begin{itemize}
+    \item $S_1 \equiv \mono{l := 1:2:[]}$
+    \item $S_2 \equiv \mono{y := [x + 1 for x in l]}$
+    \item $S_2' \equiv \mono{y := [x + 1 for x in 1:2:[]]}$
+    \item $\begin{aligned}
+        s_0(\mono{l}) &= \perp & s_0(\mono{y}) &= \perp\\
+        s_1(\mono{l}) &= \mono{1:2:[]} & s_1(\mono{y}) &= \perp\\
+        s_2(\mono{l}) &= \mono{1:2:[]} & s_2(\mono{y}) &= \mono{2:3:[]}\\
+    \end{aligned}$
+\end{itemize}
+
 \begin{mathpar}
     \inferrule*[right={$[\text{comp}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {<\mono{l := 1:2:[]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], \perp}}
+            {<S_1, s_0> \rightarrow s_1}
         \inferrule*[right={$[\text{lcomp}_{var}]$}]
             {\inferrule*[right={$[\text{ass}_{lc}]$}]
                 {\inferrule*[right={$[\text{ass}_{ll}]$}]
                     {}
-                    {<\mono{y := 2:3:[]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+                    {<\mono{y := 2:3:[]}, s_1> \rightarrow s_2}
                 }
-                {<\mono{y := [x + 1 for x in 1:2:[]]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+                {<S_2', s_1> \rightarrow s_2}
             }
-            {<\mono{y := [x + 1 for x in l]}, s_{1:2:[], \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+            {<S_2, s_1> \rightarrow s_2}
         }
-        {<\mono{l := 1:2:[]; y := [x + 1 for x in l]}, s_{\perp, \perp}> \rightarrow s_{1:2:[], 2:3:[]}}
+        {<S_1 \mono{; } S_2, s_0> \rightarrow s_2}
 \end{mathpar}
 
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[]]}} s_{1:2:[], \perp}\\
-    =\ & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[] if true]}} s_{1:2:[], \perp}\\
-    =\ & \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}
-    & \text{because } \fancybr{\BB}{\mono{true}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
-    =\ & \mono{2:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_{1:2:[], \perp}\\
-    =\ & \mono{2:} \fancybr{\AA}{\mono{x + 1}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}
-    & \text{because } \fancybr{\BB}{\mono{true}} s_{1:2:[], \perp}[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
-    =\ & \mono{2:3:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_{1:2:[], \perp}\\
+    & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[]]}} s_1\\
+    =\ & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[] if true]}} s_1\\
+    =\ & \fancybr{\AA}{\mono{x + 1}} s_1[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_1
+    & \text{because } \fancybr{\BB}{\mono{true}} s_1[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
+    =\ & \mono{2:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_1\\
+    =\ & \mono{2:} \fancybr{\AA}{\mono{x + 1}} s_1[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_1
+    & \text{because } \fancybr{\BB}{\mono{true}} s_1[\mono{x} \mapsto \fancybr{\NN}{\mono{2}}] = \mathbf{tt}\\
+    =\ & \mono{2:3:} \fancybr{\CC}{\mono{[x + 1 for x in [] if true]}} s_1\\
     =\ & \mono{2:3:[]}\\
 \end{aligned}$
-
-\end{landscape}
 
 \subsection{Case study}
 
@@ -397,8 +407,6 @@ We have shown that the syntax and semantics we defined can be used to show the e
         s_2(\text{x}) &= \mono{1:2:3:[]} & s_2(\text{y}) &= \mono{2:4:[]}\\
     \end{aligned}$
 \end{itemize}
-
-$\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and right hand side are syntactically equivalent. We just give names to program snippets to make things clearer.
 
 \begin{mathpar}
     \inferrule*[right={$[\text{comp}]$}]
