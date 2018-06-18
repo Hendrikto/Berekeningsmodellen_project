@@ -378,6 +378,24 @@ $\begin{aligned}
 
 \end{landscape}
 
+\subsubsection{Case study}
+
+We have shown that the syntax and semantics we defined can be used to show the execution of simple programs. Now we can assemble the parts and tackle the case study from the introduction.
+
+\begin{itemize}
+    \item S1 $\equiv$ x := 1:2:3:[]
+    \item S2 $\equiv$ y := [a * 2 for a in x if b]
+    \item b $\equiv$ a * 2 < 5
+\end{itemize}
+
+$\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and right hand side are syntactically equivalent. We just give names to program snippets to make things clearer.
+
+\begin{mathpar}
+    \inferrule*[right={$[\text{comp}]$}]
+        {}
+        {<\text{S1; S2}, s_{\perp, \perp}> \rightarrow s_{1:2:3:[], 2:4:[]}}
+\end{mathpar}
+
 \printbibliography
 
 \end{document}
