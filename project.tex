@@ -397,9 +397,9 @@ $\begin{aligned}
 We have shown that the syntax and semantics we defined can be used to show the execution of simple programs. Now we can assemble the parts and tackle the case study of the program from the introduction.
 
 \begin{itemize}
-    \item $S1 \equiv \mono{x := 1:2:3:[]}$
-    \item $S2 \equiv \mono{y := [a * 2 for a in x if } b \mono{]}$
-    \item $S2' \equiv \mono{y := [a * 2 for a in 1:2:3:[] if } b \mono{]}$
+    \item $S_1 \equiv \mono{x := 1:2:3:[]}$
+    \item $S_2 \equiv \mono{y := [a * 2 for a in x if } b \mono{]}$
+    \item $S_2' \equiv \mono{y := [a * 2 for a in 1:2:3:[] if } b \mono{]}$
     \item $b \equiv \mono{a * 2 < 5}$
     \item $\begin{aligned}
         s_0(\text{x}) &= \perp & s_0(\text{y}) &= \perp\\
@@ -412,18 +412,18 @@ We have shown that the syntax and semantics we defined can be used to show the e
     \inferrule*[right={$[\text{comp}]$}]
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
-            {<S1, s_0> \rightarrow s_1}
+            {<S_1, s_0> \rightarrow s_1}
         \inferrule*[right={$[\text{lcomp}_{var}]$}]
             {\inferrule*[right={$[\text{ass}_{lc}]$}]
                 {\inferrule*[right={$[\text{ass}_{ll}]$}]
                     {}
                     {<\mono{y := 2:4:[]}, s_1> \rightarrow s_2}
                 }
-                {<S2', s_1> \rightarrow s_2}
+                {<S_2', s_1> \rightarrow s_2}
             }
-            {<S2, s_1> \rightarrow s_2}
+            {<S_2, s_1> \rightarrow s_2}
         }
-        {<S1 \mono{;} S2, s_0> \rightarrow s_2}
+        {<S_1 \mono{;} S_2, s_0> \rightarrow s_2}
 \end{mathpar}
 
 Because
