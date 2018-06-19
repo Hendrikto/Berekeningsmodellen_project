@@ -35,6 +35,7 @@
 \newcommand{\dblbr}[1]{\llbracket#1\rrbracket}
 \newcommand{\fancybr}[2]{#1 \dblbr{#2}}
 \renewcommand{\AA}{\mathcal{A}}
+\newcommand{\Ntwo}{Nielson \& Nielson}
 \newcommand{\BB}{\mathcal{B}}
 \newcommand{\CC}{\mathcal{C}}
 \newcommand{\LL}{\mathcal{L}}
@@ -156,7 +157,7 @@ The syntax we need is given here in Backus-Naur form (BNF). The semantics with a
 
 \subsubsection{Differences}
 
-In addition to the variables that are used by Nielson and Nielson \cite{wiley}, we split the While variables into arithmetic variables and list variables. This allows us to prevent strange construction like
+In addition to the variables that are used by \Ntwo \cite{wiley}, we split the While variables into arithmetic variables and list variables. This allows us to prevent strange construction like
 
 \begin{lstlisting}
     x := 4;
@@ -173,12 +174,12 @@ Additionally the definition of list variable \mono{y} begins with a list literal
 
 \subsubsection{Semantic Functions}
 
-Nielson and Nielson define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lvar$, so we also have two state functions.
+\Ntwo define the state function as being of type $\Var \rightarrow \mathbb{Z}$, so we need to redefine it. We have two types of variables: $\Avar$ and $\Lvar$, so we also have two state functions.
 
 \begin{itemize}
     \item $\Astate: \Avar \rightarrow \mathbb{Z}$
 
-    This is just the function $\State$ from Nielson and Nielson \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
+    This is just the function $\State$ from \Ntwo \cite{wiley}, but renamed to fit to our case with split list variables and arithmetic variables.
     \item $\Lstate: \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
 
     This state function is used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
@@ -234,16 +235,18 @@ $\begin{aligned}
 
 \subsubsection{Semantics}
 
-We are using the same basic form as Nielson \& Nielson \cite[Section 2.1]{wiley} for our semantic rules.
+We are using the same basic form as \Ntwo \cite[Section 2.1]{wiley} for our semantic rules.
 The basic rule looks as follow:
+
 \begin{mathpar}
     \inferrule*[right={if \dots}]
         {<S_1, s_0> \rightarrow s_1, \dots, <S_n, s_{n-1}> \rightarrow s_n}
         {<S, s_0> \rightarrow s_n}\\
 \end{mathpar}
 
-In addition to that, we also have a basic form for the transitions (e.g. for $[\text{SKIP}]$ or $[\text{ASS}_a]$).
+Rules are comprised of transitions, we also have a basic form for the transitions.
 The basic transition is of the following form:
+
 \begin{mathpar}
     \inferrule*[]
         {}
@@ -286,7 +289,7 @@ These basic rules allow the following semantic rules for our extended While lang
 \end{tabular}
 \end{center}
 
-We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
+We reused the above mentioned rules from \Ntwo \cite[Table 2.1]{wiley}.
 We deleted the "natural semantics" ($_{ns}$) part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ASS}]$ to $[\text{ASS}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
 
 \begin{center}
