@@ -300,8 +300,8 @@ After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assig
 
 \begin{mathpar}
     \inferrule*[left={$[\text{lcomp}_{var}]$}]
-        {<y \mono{ := } \fancybr{R}{lc}, s> \rightarrow s}
-        {<y \mono{ := } lc, s> \rightarrow s}\\
+        {<y \mono{ := } \fancybr{R}{lc}, s> \rightarrow s'}
+        {<y \mono{ := } lc, s> \rightarrow s'}\\
 \end{mathpar}
 
 We use this rule to replace the list variable inside the list comprehension with an actual list literal, which can then be used by the $\CC$ function to compute the resulting list literal from the list comprehension.
