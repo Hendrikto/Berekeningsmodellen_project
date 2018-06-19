@@ -252,29 +252,37 @@ The basic transition is of the following form:
 
 These basic rules allow the following semantic rules for our extended While language:
 
-\begin{mathpar}
-    \inferrule*[left={$[\text{ass}_a]$}]
+\begin{tabular}{lll}
+    $[\text{ASS}_a]$ & $\inferrule
         {}
-        {<x \mono{ := } a, s> \rightarrow s[x \mapsto \fancybr{\AA}{a}s]}\\
-    \inferrule*[left={$[\text{skip}]$}]
+        {<x \mono{ := } a, s> \rightarrow s[x \mapsto \fancybr{\AA}{a}s]}
+    $\\\\
+    $[\text{SKIP}]$ & $\inferrule
         {}
-        {<\mono{skip}, s> \rightarrow s}\\
-    \inferrule*[left={$[\text{comp}]$}]
+        {<\mono{skip}, s> \rightarrow s}
+    $\\\\
+    $[\text{COMP}]$ & $\inferrule
         {<S_1, s> \rightarrow s', <S_2, s'> \rightarrow s''}
-        {<S_1 \mono{; } S_2, s> \rightarrow s''} \\
-    \inferrule*[left={$[\text{if}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
+        {<S_1 \mono{; } S_2, s> \rightarrow s''}
+    $\\\\
+    $[\text{IF}^{tt}]$ & $\inferrule
         {<S_1, s> \rightarrow s'}
-        {<\mono{if } b \mono{ then } S_1 \mono{ else } S_2, s> \rightarrow s'}\\
-    \inferrule*[left={$[\text{if}^{ff}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
+        {<\mono{if } b \mono{ then } S_1 \mono{ else } S_2, s> \rightarrow s'}
+    $ & if $\fancybr{\BB}{b}s = \mathbf{tt}$\\\\
+    $[\text{IF}^{ff}]$ & $\inferrule
         {<S_2, s> \rightarrow s'}
-        {<\mono{if } b \mono{ then } S_1 \mono{ else } S_2, s> \rightarrow s'}\\
-    \inferrule*[left={$[\text{while}^{tt}]$}, right={if $\fancybr{\BB}{b}s = \mathbf{tt}$}]
+        {<\mono{if } b \mono{ then } S_1 \mono{ else } S_2, s> \rightarrow s'}
+    $ & if $\fancybr{\BB}{b}s = \mathbf{ff}$\\\\
+    $[\text{WHILE}^{tt}]$ & $\inferrule
         {<S, s> \rightarrow s', <\mono{while } b \mono{ do } S, s'> \rightarrow s''}
-        {<\mono{while } b \mono{ do } S, s> \rightarrow s''}\\
-    \inferrule*[left={$[\text{while}^{ff}$]}, right={if $\fancybr{\BB}{b}s = \mathbf{ff}$}]
+        {<\mono{while } b \mono{ do } S, s> \rightarrow s''}
+    $ & if $\fancybr{\BB}{b}s = \mathbf{tt}$\\\\
+    % does this fit the general form? This is taken form the book...
+    $[\text{WHILE}^{ff}]$ & $\inferrule
         {}
-        {<\mono{while } b \mono{ do } S, s> \rightarrow s}\\ % does this fit the general form? This is taken form the book...
-\end{mathpar}
+        {<\mono{while } b \mono{ do } S, s> \rightarrow s}
+    $ & if $\fancybr{\BB}{b}s = \mathbf{ff}$\\\\
+\end{tabular}
 
 We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
 We deleted the "natural semantics" ($_{ns}$) part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ASS}]$ to $[\text{ASS}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
