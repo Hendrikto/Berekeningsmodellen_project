@@ -170,6 +170,22 @@ on a semantic level, so we don't have to deal with them "at run time". This is a
 
 Additionally the definition of list variable \mono{y} begins with a list literal \metavar{ll}, and then continues with a list comprehension \metavar{lc}. The syntax we chose forbids this, as you have to choose between both versions when defining a list \metavar{l}.
 
+The split of arithmetic variables \metavar{x} and list variables \metavar{y} makes While comprehensions a little less versatile, but arguably also less confusing than Python. As an example, take the following valid Python program, which makes a copy of the \mono{x} list:
+
+\begin{lstlisting}
+    x = [1, 2, 3]
+    y = [x for x in x]
+\end{lstlisting}
+
+After executing the above program, \mono{x} and \mono{y} contain the same values. A naive translation into While would look like this:
+
+\begin{lstlisting}
+    x := 1:2:3:[];
+    y := [x for x in x]
+\end{lstlisting}
+
+The above While program is not valid according to our syntax, because \mono{x} takes the position of a list variable and an arithmetic variable at the same time, which is forbidden. This is arguably for the better, as the Python program could be confusing because \mono{x} is used as a list and list element in the same expression.
+
 \subsection{Semantic extensions}
 
 \subsubsection{Semantic Functions}
