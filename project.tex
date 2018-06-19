@@ -252,6 +252,7 @@ The basic transition is of the following form:
 
 These basic rules allow the following semantic rules for our extended While language:
 
+\begin{center}
 \begin{tabular}{lll}
     $[\text{ASS}_a]$ & $\inferrule
         {}
@@ -283,6 +284,7 @@ These basic rules allow the following semantic rules for our extended While lang
         {<\mono{while } b \mono{ do } S, s> \rightarrow s}
     $ & if $\fancybr{\BB}{b}s = \mathbf{ff}$\\\\
 \end{tabular}
+\end{center}
 
 We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
 We deleted the "natural semantics" ($_{ns}$) part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ASS}]$ to $[\text{ASS}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
