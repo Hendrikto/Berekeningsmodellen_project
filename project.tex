@@ -289,30 +289,30 @@ These basic rules allow the following semantic rules for our extended While lang
 We reused the above mentioned rules from Nielson \& Nielson \cite[Table 2.1]{wiley}.
 We deleted the "natural semantics" ($_{ns}$) part of each rule's name, as all of our rules are in natural semantics. Additionally, we changed the name of the assignment rule $[\text{ASS}]$ to $[\text{ASS}_a]$, as we are using an additional assignment rule for list literals \metavar{ll} and list comprehensions \metavar{lc} respectively.
 
-\begin{mathpar}
-    \inferrule*[left={$[\text{ass}_{ll}]$}]
+\begin{center}
+    $[\text{ASS}_{ll}]\ \inferrule
         {}
-        {<y \mono{ := } ll, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}\\
-\end{mathpar}
+        {<y \mono{ := } ll, s> \rightarrow s[y \mapsto \fancybr{\LL}{ll}]}$
+\end{center}
 
 This rule allows assignments of list literals \metavar{ll} to a list variable y $\in \Lvar$.
 After the execution of this assignment in state s, y is equal to $\fancybr{\LL}{ll}$.
 
-\begin{mathpar}
-    \inferrule*[left={$[\text{ass}_{lc}]$}]
+\begin{center}
+    $[\text{ASS}_{lc}]\ \inferrule
         {<y \mono{ := } \fancybr{\CC}{lc}s, s> \rightarrow s'}
-        {<y \mono{ := } lc, s> \rightarrow s'}\\
-\end{mathpar}
+        {<y \mono{ := } lc, s> \rightarrow s'}$
+\end{center}
 
 This rule makes it possible to assign a list comprehension to a variable.
 To execute this rule, the $\CC$ function is used, which "translates" the list comprehension to a list literal.
 After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assign the list literal to the variable y.
 
-\begin{mathpar}
-    \inferrule*[left={$[\text{lcomp}_{var}]$}]
+\begin{center}
+    $[\text{LCOMP}_{var}]\ \inferrule
         {<y \mono{ := } \fancybr{R}{lc}, s> \rightarrow s'}
-        {<y \mono{ := } lc, s> \rightarrow s'}\\
-\end{mathpar}
+        {<y \mono{ := } lc, s> \rightarrow s'}$
+\end{center}
 
 We use this rule to replace the list variable inside the list comprehension with an actual list literal, which can then be used by the $\CC$ function to compute the resulting list literal from the list comprehension.
 The R function takes a list comprehension with an $\Lvar$ as input and returns a list comprehension with an $\Llit$.
