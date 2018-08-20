@@ -318,15 +318,6 @@ This rule makes it possible to assign a list comprehension to a variable.
 To execute this rule, the $\CC$ function is used, which "translates" the list comprehension to a list literal.
 After this translation, the assignment rule $[\text{ass}_{ll}]$ is used to assign the list literal to the variable y.
 
-\begin{center}
-    $[\text{LCOMP}_{var}]\ \inferrule
-        {<y \mono{ := } \fancybr{R}{lc}, s> \rightarrow s'}
-        {<y \mono{ := } lc, s> \rightarrow s'}$
-\end{center}
-
-We use this rule to replace the list variable inside the list comprehension with an actual list literal, which can then be used by the $\CC$ function to compute the resulting list literal from the list comprehension.
-The R function takes a list comprehension with an $\Lvar$ as input and returns a list comprehension with an $\Llit$.
-
 \section{Application}
 
 $\equiv$ is used as in $\lambda$ calculus, meaning that the left hand side and right hand side are syntactically equivalent. We just give names to program snippets to make things clearer.
