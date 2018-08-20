@@ -194,7 +194,7 @@ The above While program is not valid according to our syntax, because \mono{x} t
 \begin{itemize}
     \item $\Astate = \Avar \rightarrow \mathbb{Z}$
 
-    This is just the set of sstate functions $\State$ from \Ntwo \cite{wiley}, but renamed to fit our case with split list variables and arithmetic variables.
+    This is just the set of state functions $\State$ from \Ntwo \cite{wiley}, but renamed to fit our case with split list variables and arithmetic variables.
     \item $\Lstate = \Lvar \rightarrow \mathbb{N} \rightarrow \mathbb{Z}$
 
     Elements from this set of functions are used to hold the state of lists, which we represent as functions from the natural numbers to integers, which is a good fit to represent sequences of values, so for example:
@@ -202,7 +202,7 @@ The above While program is not valid according to our syntax, because \mono{x} t
     After executing the While program \mono{x := 1:2:[]}, $s \mono{x} = f[0 \mapsto 1, 1 \mapsto 2]$, so that $f(0) = 1, f(1) = 2, f(x > 1) = \perp$, where $s \in \Lstate$.
 \end{itemize}
 
-The intersection of domains of $\Astate$ and $\Lstate$ is empty, such that $Astate(x) \neq \perp \rightarrow Lstate(x) = \perp \land Lstate(x) \neq \perp \rightarrow \Astate(x) = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable. This way we can safely define $\State = \Astate \cup \Lstate$.
+Variable names are exclusive, meaning that given a state function $s_a \in \Astate$ and a state function $s_l \in \Lstate$ each variable name is only defined in one of them: $\forall s_a \in \Astate. \exists s_l \in \Lstate. s_a x \neq \perp \rightarrow s_l x = \perp \land s_l x \neq \perp \rightarrow s_a x = \perp$. This is because we want to use every variable name for \textbf{either} an arithmetic variable, \textbf{or} a list variable, so that we never end up with a list variable with the same name as an arithmetic variable. This way we can safely define $\State = \Astate \cup \Lstate$.
 
 We also introduced a new function $\LL$, which translates between list literal expressions \metavar{ll} and the function representation we chose that defines the list.
 
