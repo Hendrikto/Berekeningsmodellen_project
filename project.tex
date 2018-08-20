@@ -406,7 +406,6 @@ We have shown that the syntax and semantics we defined can be used to show the e
 \begin{itemize}
     \item $S_1 \equiv \mono{x := 1:2:3:[]}$
     \item $S_2 \equiv \mono{y := [a * 2 for a in x if } b \mono{]}$
-    \item $S_2' \equiv \mono{y := [a * 2 for a in 1:2:3:[] if } b \mono{]}$
     \item $b \equiv \mono{a * 2 < 5}$
     \item $\begin{aligned}
         s_0(\text{x}) &= \perp & s_0(\text{y}) &= \perp\\
@@ -420,13 +419,10 @@ We have shown that the syntax and semantics we defined can be used to show the e
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
             {<S_1, s_0> \rightarrow s_1}
-        \inferrule*[right={$[\text{lcomp}_{var}]$}]
-            {\inferrule*[right={$[\text{ass}_{lc}]$}]
-                {\inferrule*[right={$[\text{ass}_{ll}]$}]
-                    {}
-                    {<\mono{y := 2:4:[]}, s_1> \rightarrow s_2}
-                }
-                {<S_2', s_1> \rightarrow s_2}
+        \inferrule*[right={$[\text{ass}_{lc}]$}]
+            {\inferrule*[right={$[\text{ass}_{ll}]$}]
+                {}
+                {<\mono{y := 2:4:[]}, s_1> \rightarrow s_2}
             }
             {<S_2, s_1> \rightarrow s_2}
         }
@@ -436,9 +432,9 @@ We have shown that the syntax and semantics we defined can be used to show the e
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{S_2} s_1\\
-    =\ & \fancybr{\CC}{\mono{a * 2 for a in } s_1 \mono{x if } b \mono{]}} s_1\\
-    =\ & \fancybr{\CC}{S_2'} s_1\\
+    & \fancybr{\CC}{\mono{[a * 2 for a in x if } b \mono{]}} s_1\\
+    =\ & \fancybr{\CC}{\mono{[a * 2 for a in } s_1 \mono{x if } b \mono{]}} s_1\\
+    =\ & \fancybr{\CC}{\mono{[a * 2 for a in 1:2:3:[] if } b \mono{]}} s_1\\
     =\ & \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if } b \mono{]}} s_1
     & \text{because } \fancybr{\BB}{b} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
     =\ & \mono{2:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if } b \mono{]}} s_1\\
