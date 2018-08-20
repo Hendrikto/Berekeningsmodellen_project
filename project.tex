@@ -238,6 +238,8 @@ The converter function $\CC$, replaces list variables with their value like in t
     y := [x for x in l]
 \end{lstlisting}
 
+$\CC$ will convert \mono{[x for x in l]} to \mono{[x for x in 1:2:[]]}.
+
 \subsubsection{Semantics}
 
 We are using the same basic form as \Ntwo \cite[Section 2.1]{wiley} for our semantic rules.
