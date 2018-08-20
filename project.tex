@@ -436,7 +436,9 @@ We have shown that the syntax and semantics we defined can be used to show the e
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\mono{[a * 2 for a in 1:2:3:[] if } b \mono{]}} s_1\\
+    & \fancybr{\CC}{S_2} s_1\\
+    =\ & \fancybr{\CC}{\mono{a * 2 for a in } s_1 \mono{x if } b \mono{]}} s_1\\
+    =\ & \fancybr{\CC}{S_2'} s_1\\
     =\ & \fancybr{\AA}{\mono{a * 2}} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if } b \mono{]}} s_1
     & \text{because } \fancybr{\BB}{b} s_1[\mono{a} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
     =\ & \mono{2:} \fancybr{\CC}{\mono{[a * 2 for a in 2:3:[] if } b \mono{]}} s_1\\
