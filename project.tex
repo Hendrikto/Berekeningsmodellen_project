@@ -361,7 +361,6 @@ $\begin{aligned}
 \begin{itemize}
     \item $S_1 \equiv \mono{l := 1:2:[]}$
     \item $S_2 \equiv \mono{y := [x + 1 for x in l]}$
-    \item $S_2' \equiv \mono{y := [x + 1 for x in 1:2:[]]}$
     \item $\begin{aligned}
         s_0(\mono{l}) &= \perp & s_0(\mono{y}) &= \perp\\
         s_1(\mono{l}) &= \mono{1:2:[]} & s_1(\mono{y}) &= \perp\\
@@ -374,13 +373,10 @@ $\begin{aligned}
         {\inferrule*[right={$[\text{ass}_{ll}]$}]
             {}
             {<S_1, s_0> \rightarrow s_1}
-        \inferrule*[right={$[\text{lcomp}_{var}]$}]
-            {\inferrule*[right={$[\text{ass}_{lc}]$}]
-                {\inferrule*[right={$[\text{ass}_{ll}]$}]
-                    {}
-                    {<\mono{y := 2:3:[]}, s_1> \rightarrow s_2}
-                }
-                {<S_2', s_1> \rightarrow s_2}
+        \inferrule*[right={$[\text{ass}_{lc}]$}]
+            {\inferrule*[right={$[\text{ass}_{ll}]$}]
+                {}
+                {<\mono{y := 2:3:[]}, s_1> \rightarrow s_2}
             }
             {<S_2, s_1> \rightarrow s_2}
         }
@@ -390,7 +386,9 @@ $\begin{aligned}
 Because
 
 $\begin{aligned}
-    & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[]]}} s_1\\
+    & \fancybr{\CC}{\mono{[x + 1 for x in l]}} s_1\\
+    =\ & \fancybr{\CC}{\mono{[x + 1 for x in } s_1 \mono{l]}} s_1\\
+    =\ & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[]]}} s_1\\
     =\ & \fancybr{\CC}{\mono{[x + 1 for x in 1:2:[] if true]}} s_1\\
     =\ & \fancybr{\AA}{\mono{x + 1}} s_1[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] \mono{:} \fancybr{\CC}{\mono{[x + 1 for x in 2:[] if true]}} s_1
     & \text{because } \fancybr{\BB}{\mono{true}} s_1[\mono{x} \mapsto \fancybr{\NN}{\mono{1}}] = \mathbf{tt}\\
