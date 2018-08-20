@@ -408,9 +408,9 @@ We have shown that the syntax and semantics we defined can be used to show the e
     \item $S_2 \equiv \mono{y := [a * 2 for a in x if } b \mono{]}$
     \item $b \equiv \mono{a * 2 < 5}$
     \item $\begin{aligned}
-        s_0(\text{x}) &= \perp & s_0(\text{y}) &= \perp\\
-        s_1(\text{x}) &= \mono{1:2:3:[]} & s_1(\text{y}) &= \perp\\
-        s_2(\text{x}) &= \mono{1:2:3:[]} & s_2(\text{y}) &= \mono{2:4:[]}\\
+        s_0(\mono{x}) &= \perp & s_0(\mono{y}) &= \perp\\
+        s_1(\mono{x}) &= \mono{1:2:3:[]} & s_1(\mono{y}) &= \perp\\
+        s_2(\mono{x}) &= \mono{1:2:3:[]} & s_2(\mono{y}) &= \mono{2:4:[]}\\
     \end{aligned}$
 \end{itemize}
 
