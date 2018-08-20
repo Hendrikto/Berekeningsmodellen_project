@@ -220,6 +220,7 @@ There are list comprehensions \metavar{lc} as well, which need to be converted t
 $\CC: \Lcomp \rightarrow \State \rightarrow \Llit$
 
 $\begin{aligned}
+    \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } y\mono{]}} s &= \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } s y} s\\
     \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } ll \mono{]}} s &= \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } ll \mono{ if true]}} s\\
     \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in [] if } b \mono{]}} s &= \mono{[]}\\
     \fancybr{\CC}{\mono{[} a \mono{ for } x \mono{ in } h \mono{:} t \mono{ if } b \mono{]}} s &= \begin{cases}
@@ -230,23 +231,12 @@ $\begin{aligned}
     \end{cases}\\
 \end{aligned}$
 
-In addition to that, we need an extra replace function $R$, which handles list variables inside our list comprehensions.
-We cannot solve the following program with our current rules:
+The converter function $\CC$, replaces list variables with their value like in the following While program:
 
 \begin{lstlisting}
     l := 1:2:[];
     y := [x for x in l]
 \end{lstlisting}
-
-To fix this, we add the function $R$ which replaces the list variables \metavar{y} in a list comprehension \metavar{lc} back into list literals \metavar{ll}, such that they can be evaluated by the $\CC$ function.
-This $R$ function works as follows:
-
-$R: \Lcomp \text{(with Lvar)} \rightarrow \Lcomp \text{(without Lvar)}$
-
-$\begin{aligned}
-    \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } y\mono{]}} &= \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } y \mono{ if true]}}\\
-    \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } y \mono{ if } b \mono{]}} &= \fancybr{R}{\mono{[} a \mono{ for } x \mono{ in } \Lstate(y) \mono{ if } b\mono{]}}\\
-\end{aligned}$
 
 \subsubsection{Semantics}
 
